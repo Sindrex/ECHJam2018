@@ -12,5 +12,13 @@
             get { return m_name; }
             set { m_name = value; }
         }
+
+        [SerializeField]
+        bool m_isPlayer;
+        public bool IsPlayer
+        {
+            get { return m_isPlayer; }
+            set { m_isPlayer = value; }
+        }
     }
 }

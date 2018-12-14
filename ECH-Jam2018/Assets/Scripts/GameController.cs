@@ -15,7 +15,18 @@
         CharacterManager m_characterManager;
         [SerializeField]
         GameState m_gameState;
+        [SerializeField]
+        Character m_player;
 
+        public void StopTalking()
+        {
+            StartCoroutine(StopTalkingAsync());
+        }
+        public IEnumerator StopTalkingAsync()
+        {
+            m_gameState.ActiveDialogue = null;
+            yield return StartCoroutine(m_dialogueGui.HideAsync());
+        }
         public void TalkTo(string name)
         {
             StartCoroutine(TalkToAsync(name));
@@ -46,25 +57,34 @@
             }
 
             var closeUp = CloseUp.FromAsset(speakerName);
-            yield return StartCoroutine(m_dialogueGui.ShowLine(closeUp, speakerName, line));
+            yield return StartCoroutine(m_dialogueGui.ShowLineAsync(closeUp, speakerName, line));
         }
 
-        /// <summary>
-        /// Load test dialogues. To be removed
-        /// </summary>
         void Update()
         {
-            string name = "";
-            if (Input.GetKeyDown(KeyCode.Alpha0)) name = "Adam";
-            else if (Input.GetKeyDown(KeyCode.Alpha1)) name = "Bob";
+            float distance;
+            var character = m_characterManager.GetClosest(m_player.transform.position, out distance);
+            if (character != null && distance < 3f) m_gameState.ActiveCharacter = character;
+            else m_gameState.ActiveCharacter = null;
 
-            if (!string.IsNullOrEmpty(name))
+            if (Input.GetKeyDown(KeyCode.X))
             {
-                TalkTo(name);
-                return;
+                // A dialogue is currently open
+                if (m_gameState.ActiveDialogue != null)
+                {
+                    // But we reached the last line, stop it
+                    if (m_gameState.IsDialogueOver) StopTalking();
+                    // There are more lines, go on
+                    else AdvanceDialogue();
+                }
+                // No dialogue currently open, start one with the closest character
+                else if (m_gameState.ActiveCharacter != null) TalkTo(m_gameState.ActiveCharacter.Name);
             }
-
-            if (Input.GetKeyDown(KeyCode.Space)) AdvanceDialogue();
+            else
+            {
+                // There is no one to interact with
+                // TODO: Add unpleasant sound
+            }
         }
     }
 }

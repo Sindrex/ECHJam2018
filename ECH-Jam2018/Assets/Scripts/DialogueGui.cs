@@ -16,7 +16,7 @@
         [SerializeField]
         GameObject m_endOfLine;
 
-        public IEnumerator ShowLine(CloseUp closeup, string name, string line)
+        public IEnumerator ShowLineAsync(CloseUp closeup, string name, string line)
         {
             m_endOfLine.SetActive(false);
             gameObject.SetActive(true);
@@ -26,6 +26,12 @@
             m_words.text = line;
             yield return null;
             m_endOfLine.SetActive(true);
+        }
+
+        public IEnumerator HideAsync()
+        {
+            yield return null;
+            gameObject.SetActive(false);
         }
     }
 }
