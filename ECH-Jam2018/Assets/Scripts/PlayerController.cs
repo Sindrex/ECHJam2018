@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
      * Controls: 
      * -A/D, or right/left arrows to move around
      * -Space to jump
+     * -Lshift to sprint/run
      * 
      */
 
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
         currentMoveSpeed = moveSpeed;
+        Cursor.visible = false;
     }
 	
 	// Update is called once per frame
