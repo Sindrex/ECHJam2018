@@ -6,13 +6,13 @@
 
     public class PlayerController : MonoBehaviour
     {
-
         /* Author: Sindrex
          * Date: 14.12.2018
          * 
          * Controls: 
          * -A/D, or right/left arrows to move around
          * -Space to jump
+         * -Lshift to sprint/run
          * 
          */
 
@@ -31,11 +31,12 @@
         public GameState gameState;
         private Rigidbody2D rb;
 
-        // Use this for initialization
-        void Start()
-        {
+
+	    // Use this for initialization
+	    void Start () {
             rb = GetComponent<Rigidbody2D>();
             currentMoveSpeed = moveSpeed;
+            Cursor.visible = false;
         }
 
         // Update is called once per frame
@@ -73,7 +74,6 @@
                 running = false;
                 currentMoveSpeed = moveSpeed;
             }
-
         }
 
         private void FixedUpdate()
@@ -94,5 +94,4 @@
             transform.Translate(horizontalAxis * currentMoveSpeed * Time.deltaTime, 0, 0);
         }
     }
-
 }

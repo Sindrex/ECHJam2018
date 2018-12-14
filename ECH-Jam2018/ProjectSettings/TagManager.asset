@@ -44,3 +44,6 @@ TagManager:
   - name: GUI
     uniqueID: 881058705
     locked: 0
+  - name: Snow
+    uniqueID: 2246573847
+    locked: 0
