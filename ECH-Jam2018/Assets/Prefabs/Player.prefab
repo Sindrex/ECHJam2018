@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61014484476058118}
   - component: {fileID: 114180583683005976}
   - component: {fileID: 81323597077164616}
+  - component: {fileID: 114752522851397508}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -125,7 +126,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -174,9 +175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc251efbb898dc94b80e9313cf91c0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  sprintSpeed: 8
-  jumpPower: 8
+  moveSpeed: 15
+  sprintSpeed: 15
+  jumpPower: 20
   jumpGroundDist: 0
   jumpRaycastStart: -1.27
   fallMultiplier: 2.5
@@ -185,6 +186,19 @@ MonoBehaviour:
   running: 0
   spriteRenderer: {fileID: 212750471769759490}
   gameState: {fileID: 11400000, guid: e925705f69765574492fd3854dd63bed, type: 2}
+--- !u!114 &114752522851397508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463090075363298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a4f49037eb94345ba65351ac2f90bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_name: Player
+  m_isPlayer: 1
 --- !u!124 &124635224066196888
 Behaviour:
   m_ObjectHideFlags: 1
