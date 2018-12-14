@@ -13,6 +13,7 @@
         {
             var sampleDialogue = new Dialogue()
             {
+                Name = "DefaultDialogueName",
                 DefaultSpeaker = "Bob",
                 Lines = new List<string> {
                     "I used to work as a sailor",

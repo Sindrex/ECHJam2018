@@ -1,5 +1,6 @@
 ﻿namespace GameJam
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
@@ -7,6 +8,14 @@
 
     public sealed class Dialogue
     {
+        [NonSerialized]
+        string m_name;
+        public string Name
+        {
+            get { return m_name; }
+            set { m_name = value; }
+        }
+
         [SerializeField]
         string m_defaultSpeaker;
         public string DefaultSpeaker
@@ -35,7 +44,9 @@
         {
             var asset = Resources.Load<TextAsset>("Dialogue/" + dialogueName);
             var json = asset.text;
-            return JsonUtility.FromJson<Dialogue>(json);
+            var dialogue = JsonUtility.FromJson<Dialogue>(json);
+            dialogue.Name = dialogueName;
+            return dialogue;
         }
     }
 }
