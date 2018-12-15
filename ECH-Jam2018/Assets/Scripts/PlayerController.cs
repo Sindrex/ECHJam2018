@@ -30,7 +30,7 @@
         public SpriteRenderer spriteRenderer;
         public GameState gameState;
         private Rigidbody2D rb;
-
+        public SoundController soundController;
 
 	    // Use this for initialization
 	    void Start () {
@@ -63,6 +63,7 @@
                 //print("yo");
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpPower;
                 jumping = true;
+                soundController.playAudio("jump");
             }
             else if (Input.GetKey(KeyCode.LeftShift))
             {
