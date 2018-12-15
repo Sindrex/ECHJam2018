@@ -31,7 +31,7 @@
         public GameState gameState;
         public Animator animator;
         private Rigidbody2D rb;
-
+        public SoundController soundController;
 
 	    // Use this for initialization
 	    void Start () {
@@ -65,6 +65,7 @@
                 //print("yo");
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpPower;
                 jumping = true;
+                soundController.playAudio("jump");
             }
             else if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -80,6 +81,7 @@
 
         private void FixedUpdate()
         {
+            FixSmallVelocity();
             if (rb.velocity.y < 0)
             {
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -89,7 +91,8 @@
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
 
-            float horizontalAxis = Input.GetAxis("Horizontal");
+            // Ignore input if in dialogue
+            float horizontalAxis = (gameState.ActiveDialogue != null) ? 0f : Input.GetAxis("Horizontal");
             animator.SetFloat("VerticalSpeed", rb.velocity.y);
             animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalAxis * currentMoveSpeed * Time.deltaTime));
 
@@ -97,6 +100,16 @@
             if (gameState.ActiveDialogue != null) return;
             if (horizontalAxis != 0f) spriteRenderer.flipX = (horizontalAxis < 0);
             transform.Translate(horizontalAxis * currentMoveSpeed * Time.deltaTime, 0, 0);
+        }
+
+        void FixSmallVelocity()
+        {
+            if (Mathf.Abs(rb.velocity.y) < 0.0001f)
+            {
+                var v = rb.velocity;
+                v.y = 0f;
+                rb.velocity = v;
+            }
         }
     }
 }

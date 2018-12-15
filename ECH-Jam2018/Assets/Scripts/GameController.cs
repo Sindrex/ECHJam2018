@@ -22,7 +22,7 @@
 
         void Start()
         {
-            //m_soundController.playAudio("Zoe");
+            m_soundController.playAudio("BGM");
         }
 
         public void StopTalking()
@@ -31,6 +31,7 @@
         }
         public IEnumerator StopTalkingAsync()
         {
+            if (m_dialogueGui.IsAnimating) yield break;
             m_gameState.ActiveDialogue = null;
             yield return StartCoroutine(m_dialogueGui.HideAsync());
         }
@@ -46,6 +47,7 @@
         public IEnumerator TalkToAsync(string name)
         {
             if (string.IsNullOrEmpty(name)) yield break;
+            if (m_dialogueGui.IsAnimating) yield break;
 
             m_gameState.ActiveDialogue = Dialogue.FromAsset(name);
             yield return StartCoroutine(AdvanceDialogueAsync());
@@ -53,6 +55,8 @@
 
         public IEnumerator AdvanceDialogueAsync()
         {
+            if (m_dialogueGui.IsAnimating) yield break;
+
             string line = m_gameState.AdvanceOneLine();
             string speakerName = m_characterManager.GetSpeakerName(line);
             // The default speaker is the one we are talking to
