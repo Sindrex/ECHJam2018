@@ -32,6 +32,7 @@
         public IEnumerator StopTalkingAsync()
         {
             if (m_dialogueGui.IsAnimating) yield break;
+            m_gameState.ActiveCharacter.ResumeAnimations();
             m_gameState.ActiveDialogue = null;
             yield return StartCoroutine(m_dialogueGui.HideAsync());
         }
@@ -50,8 +51,8 @@
             if (m_dialogueGui.IsAnimating) yield break;
 
             m_gameState.ActiveDialogue = Dialogue.FromAsset(name);
-            var character = m_characterManager.GetCharacter(name);
-            character.Face(m_player.transform);
+            m_gameState.ActiveCharacter.PauseAnimations();
+            m_gameState.ActiveCharacter.Face(m_player.transform);
             yield return StartCoroutine(AdvanceDialogueAsync());
         }
 

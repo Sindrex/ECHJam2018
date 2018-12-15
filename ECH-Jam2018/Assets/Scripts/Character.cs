@@ -23,10 +23,20 @@
 
         [SerializeField]
         SpriteRenderer m_renderer;
+        [SerializeField]
+        Animator m_animator;
 
         public void Face(Transform other)
         {
             m_renderer.flipX = (other.position.x < transform.position.x);
+        }
+        public void PauseAnimations()
+        {
+            m_animator.enabled = false;
+        }
+        public void ResumeAnimations()
+        {
+            m_animator.enabled = true;
         }
     }
 }
