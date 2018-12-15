@@ -24,7 +24,8 @@ GameObject:
   - component: {fileID: 114180583683005976}
   - component: {fileID: 81323597077164616}
   - component: {fileID: 114752522851397508}
-  - component: {fileID: 58737427132434874}
+  - component: {fileID: 95426116091529756}
+  - component: {fileID: 61562631522954680}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -41,7 +42,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4393877506772760}
   - component: {fileID: 20031002448197518}
-  - component: {fileID: 124635224066196888}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -73,8 +73,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463090075363298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.8, y: -0.16, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 7.8, y: 4.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4393877506772760}
   - {fileID: 4863943015298062}
@@ -116,7 +116,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.47102076, g: 0.8897059, b: 0.5778576, a: 0}
+  m_BackGroundColor: {r: 0.09515571, g: 0.17555693, b: 0.32352942, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -136,11 +136,11 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!50 &50269689710083860
@@ -163,8 +163,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58737427132434874
-CircleCollider2D:
+--- !u!61 &61562631522954680
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -175,9 +175,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06, y: 0.87}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 5, y: 5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 2.4999998
+  m_Size: {x: 0.09, y: 0.95}
+  m_EdgeRadius: 0.22
 --- !u!81 &81323597077164616
 AudioListener:
   m_ObjectHideFlags: 1
@@ -265,6 +275,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95426116091529756
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463090075363298}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd9e23a07afd45f4c9baf133fba18756, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114104850645724644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -294,16 +321,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  sprintSpeed: 15
-  jumpPower: 20
+  sprintSpeed: 13
+  jumpPower: 18
   jumpGroundDist: 0
-  jumpRaycastStart: -1.27
+  jumpRaycastStart: -0.05
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   jumping: 0
   running: 0
   spriteRenderer: {fileID: 212750471769759490}
   gameState: {fileID: 11400000, guid: e925705f69765574492fd3854dd63bed, type: 2}
+  animator: {fileID: 95426116091529756}
   soundController: {fileID: 114104850645724644}
 --- !u!114 &114752522851397508
 MonoBehaviour:
@@ -318,13 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Player
   m_isPlayer: 1
---- !u!124 &124635224066196888
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1804987671352562}
-  m_Enabled: 1
 --- !u!212 &212750471769759490
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -359,7 +380,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 11
-  m_Sprite: {fileID: 21300000, guid: 265aa5d18d861bd4aa413902f175be01, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44e138a68dacf8244ba941aa0c1887c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

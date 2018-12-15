@@ -29,6 +29,7 @@
         public bool running = false;
         public SpriteRenderer spriteRenderer;
         public GameState gameState;
+        public Animator animator;
         private Rigidbody2D rb;
         public SoundController soundController;
 
@@ -55,6 +56,7 @@
                     }
                 }
             }
+            animator.SetBool("Jumping", jumping);
 
             // Ignore input if in dialogue
             if (gameState.ActiveDialogue != null) return;
@@ -79,6 +81,7 @@
 
         private void FixedUpdate()
         {
+            FixSmallVelocity();
             if (rb.velocity.y < 0)
             {
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -89,10 +92,24 @@
             }
 
             // Ignore input if in dialogue
+            float horizontalAxis = (gameState.ActiveDialogue != null) ? 0f : Input.GetAxis("Horizontal");
+            animator.SetFloat("VerticalSpeed", rb.velocity.y);
+            animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalAxis * currentMoveSpeed * Time.deltaTime));
+
+            // Ignore input if in dialogue
             if (gameState.ActiveDialogue != null) return;
-            float horizontalAxis = Input.GetAxis("Horizontal");
-            if (horizontalAxis != 0f) spriteRenderer.flipX = (horizontalAxis > 0);
+            if (horizontalAxis != 0f) spriteRenderer.flipX = (horizontalAxis < 0);
             transform.Translate(horizontalAxis * currentMoveSpeed * Time.deltaTime, 0, 0);
+        }
+
+        void FixSmallVelocity()
+        {
+            if (Mathf.Abs(rb.velocity.y) < 0.0001f)
+            {
+                var v = rb.velocity;
+                v.y = 0f;
+                rb.velocity = v;
+            }
         }
     }
 }

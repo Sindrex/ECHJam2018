@@ -1376,6 +1376,10 @@ Prefab:
       propertyPath: jumpPower
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: 1463090075363298, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 58737427132434874, guid: 5041f478731daed42a89da2bf2648ef0,
         type: 2}
       propertyPath: m_Enabled

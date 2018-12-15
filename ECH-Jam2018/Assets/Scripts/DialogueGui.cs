@@ -21,10 +21,10 @@
         [SerializeField]
         float m_duration = 0.7f;
 
-        bool IsAnimating
+        public bool IsAnimating
         {
             get { return enabled; }
-            set { enabled = value; }
+            private set { enabled = value; }
         }
 
         [NonSerialized]
@@ -57,6 +57,7 @@
                 yield return null;
             }
             m_endOfLine.SetActive(true);
+            IsAnimating = false;
         }
 
         public IEnumerator HideAsync()
@@ -68,6 +69,7 @@
             {
                 yield return null;
             }
+            IsAnimating = false;
             gameObject.SetActive(false);
         }
 
