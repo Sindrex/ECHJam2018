@@ -44,6 +44,10 @@
         {
             var asset = Resources.Load<TextAsset>("Dialogue/" + dialogueName);
             var json = asset.text;
+            return FromJson(dialogueName, json);
+        }
+        public static Dialogue FromJson(string dialogueName, string json)
+        {
             var dialogue = JsonUtility.FromJson<Dialogue>(json);
             dialogue.Name = dialogueName;
             return dialogue;

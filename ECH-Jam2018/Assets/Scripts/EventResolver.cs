@@ -14,6 +14,10 @@
             m_gameState.EventHappened += ResolveEvent;
         }
 
+        public void ForceEvent(string currentEvent)
+        {
+            ResolveEvent(currentEvent);
+        }
         void ResolveEvent(string currentEvent)
         {
             if (currentEvent.StartsWith("SFX("))
