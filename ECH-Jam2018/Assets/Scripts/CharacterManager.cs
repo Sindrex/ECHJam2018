@@ -22,7 +22,7 @@
             foreach (var character in characters)
             {
                 if (character == null) continue;
-                m_charactersByName.Add(character.name, character);
+                m_charactersByName.Add(character.Name, character);
             }
         }
 

@@ -50,6 +50,8 @@
             if (m_dialogueGui.IsAnimating) yield break;
 
             m_gameState.ActiveDialogue = Dialogue.FromAsset(name);
+            var character = m_characterManager.GetCharacter(name);
+            character.Face(m_player.transform);
             yield return StartCoroutine(AdvanceDialogueAsync());
         }
 
