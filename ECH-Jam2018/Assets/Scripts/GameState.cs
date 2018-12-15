@@ -73,16 +73,38 @@
             }
         }
 
-        public string AdvanceOneLine(bool peek = false)
+        public string AdvanceOneLine()
         {
             int index = m_cursorByDialogueName[ActiveDialogue.Name];
             if (index < ActiveDialogue.Lines.Count)
             {
                 // Advance cursor
-                if (!peek) m_cursorByDialogueName[ActiveDialogue.Name]++;
-                return ActiveDialogue.Lines[index];
+                m_cursorByDialogueName[ActiveDialogue.Name]++;
+                var line = ActiveDialogue.Lines[index];
+                // If it's an event, go to the next one
+                if (IsEvent(line)) line = AdvanceOneLine();
+                return line;
             }
             return ActiveDialogue.FinalWords;
+        }
+
+        bool IsEvent(string line)
+        {
+            if (!line.StartsWith("@")) return false;
+            OnEventHappened(line.Substring(1));
+            return true;
+        }
+
+        [NonSerialized]
+        Action<string> m_eventHappened;
+        public event Action<string> EventHappened
+        {
+            add { m_eventHappened += value; }
+            remove { m_eventHappened -= value; }
+        }
+        void OnEventHappened(string eventName)
+        {
+            if (m_eventHappened != null) m_eventHappened(eventName);
         }
     }
 }

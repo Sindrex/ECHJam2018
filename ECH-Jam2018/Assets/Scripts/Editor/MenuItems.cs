@@ -1,5 +1,6 @@
 ﻿namespace GameJam
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
@@ -34,6 +35,28 @@
         public static void OpenPersistentPath()
         {
             EditorUtility.RevealInFinder(Application.persistentDataPath);
+        }
+        [MenuItem("Utilities/Convert dialogue")]
+        public static void ConvertDialogue()
+        {
+            var rawDialogues = Resources.LoadAll<TextAsset>("RawDialogue");
+            foreach (var rawDialogue in rawDialogues)
+            {
+                var dialoguePath = Application.dataPath + "/Resources/Dialogue/" + rawDialogue.name + ".json";
+                var dialogue = new Dialogue()
+                {
+                    Name = rawDialogue.name,
+                    Lines = new List<string>(),
+                };
+                var text = rawDialogue.text;
+                var lines = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                dialogue.Lines.AddRange(lines);
+                var json = JsonUtility.ToJson(dialogue, true);
+                using (var writer = File.CreateText(dialoguePath))
+                {
+                    writer.Write(json);
+                }
+            }
         }
     }
 }

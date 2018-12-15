@@ -32,7 +32,7 @@ public class SoundController : MonoBehaviour {
         {
             source.maxDistance = maxDist;
         }
-        playAudio("Zoe");
+        //playAudio("Zoe");
 	}
 	
 	// Update is called once per frame

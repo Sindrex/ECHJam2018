@@ -45,6 +45,7 @@
             m_closeup.CopyFrom(closeup);
             m_name.text = name;
 
+            m_words.text = "";
             m_targetText = line;
             m_currentLength = 0;
 
