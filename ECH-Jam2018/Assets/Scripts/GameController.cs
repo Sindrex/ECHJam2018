@@ -17,6 +17,13 @@
         GameState m_gameState;
         [SerializeField]
         Character m_player;
+        [SerializeField]
+        SoundController m_soundController;
+
+        void Start()
+        {
+            //m_soundController.playAudio("Zoe");
+        }
 
         public void StopTalking()
         {

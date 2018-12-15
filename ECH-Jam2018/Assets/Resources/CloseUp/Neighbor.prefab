@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114688336228494892}
   - component: {fileID: 114481909422602190}
   m_Layer: 5
-  m_Name: Me
+  m_Name: Neighbor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ffced77f9d93fc947a1c019b1cfd0bef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 166c89308ed08954a88b98a07b55412e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -177,7 +177,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9c22534b5ece2df48897f88242a0cbe3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba20e0951f1c67e4a93e43e17f2c9664, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -221,7 +221,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: cc4190643afe92c49bf374fc649070ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c11ecb5e320cc324c82f303c8da0fd07, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -294,7 +294,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 96897ec1de68ce44bb0c5e9fa4c8dc59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f480138d8405ed64588eee0e20a1bd31, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -321,7 +321,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 84cd54ca16f6ebf44bf202497b5714d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d10fa2798b92a543a0ac1e596fbf86c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
