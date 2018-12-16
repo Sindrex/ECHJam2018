@@ -58,8 +58,8 @@
             }
             animator.SetBool("Jumping", jumping);
 
-            // Ignore input if in dialogue
-            if (gameState.ActiveDialogue != null) return;
+            // Ignore input if needed
+            if (gameState.IgnoreInput) return;
             if (Input.GetKeyDown(KeyCode.Space) && !jumping)
             {
                 //print("yo");
@@ -91,13 +91,13 @@
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
 
-            // Ignore input if in dialogue
-            float horizontalAxis = (gameState.ActiveDialogue != null) ? 0f : Input.GetAxis("Horizontal");
+            // Ignore input if needed
+            float horizontalAxis = (gameState.IgnoreInput) ? 0f : Input.GetAxis("Horizontal");
             animator.SetFloat("VerticalSpeed", rb.velocity.y);
             animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalAxis * currentMoveSpeed * Time.deltaTime));
 
-            // Ignore input if in dialogue
-            if (gameState.ActiveDialogue != null) return;
+            // Ignore input if needed
+            if (gameState.IgnoreInput) return;
             if (horizontalAxis != 0f) spriteRenderer.flipX = (horizontalAxis < 0);
             transform.Translate(horizontalAxis * currentMoveSpeed * Time.deltaTime, 0, 0);
         }

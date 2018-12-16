@@ -6,9 +6,8 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72711f6c6f0b0344591f43ce41caa7a3, type: 3}
-  m_Name: GameState
+  m_Script: {fileID: 11500000, guid: 726257c88b1cff940b23222f807cb849, type: 3}
+  m_Name: DialogueManager
   m_EditorClassIdentifier: 
-  m_dialogueManager: {fileID: 11400000, guid: 602f9b85c6291f14e82035ea2a59cc57, type: 2}

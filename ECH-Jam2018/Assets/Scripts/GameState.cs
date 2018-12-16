@@ -13,6 +13,29 @@
     public sealed class GameState : ScriptableObject
     {
         [NonSerialized]
+        bool m_ignoreInput = false;
+        public bool IgnoreInput
+        {
+            get { return m_ignoreInput; }
+            set { m_ignoreInput = value; }
+        }
+
+        [NonSerialized]
+        Action m_gameIsOver;
+        public event Action GameIsOver
+        {
+            add { m_gameIsOver += value; }
+            remove { m_gameIsOver -= value; }
+        }
+        public void OnGameIsOver()
+        {
+            if (m_gameIsOver != null) m_gameIsOver();
+        }
+
+        [SerializeField]
+        DialogueManager m_dialogueManager;
+
+        [NonSerialized]
         Action m_activeCharacterChanged;
         public event Action ActiveCharacterChanged
         {
@@ -65,12 +88,29 @@
             }
         }
 
+        public int GetCompletedDialogues()
+        {
+            int count = 0;
+            foreach (var dialogue in m_dialogueManager)
+            {
+                if (IsOver(dialogue)) count++;
+            }
+            return count;
+        }
+
         public bool IsDialogueOver
         {
             get
             {
-                return m_cursorByDialogueName[ActiveDialogue.Name] == ActiveDialogue.Lines.Count;
+                return IsOver(ActiveDialogue);
             }
+        }
+        public bool IsOver(Dialogue dialogue)
+        {
+            if (dialogue == null) return false;
+            int cursor = 0;
+            m_cursorByDialogueName.TryGetValue(dialogue.Name, out cursor);
+            return cursor == dialogue.Lines.Count;
         }
 
         public string AdvanceOneLine()

@@ -20,7 +20,11 @@
         void MoveOnActiveCharacter()
         {
             gameObject.SetActive(m_gameState.ActiveCharacter != null);
-            if(m_gameState.ActiveCharacter != null) transform.position = m_gameState.ActiveCharacter.transform.position + 3f * Vector3.up;
+        }
+
+        void Update()
+        {
+            if (m_gameState.ActiveCharacter != null) transform.position = m_gameState.ActiveCharacter.transform.position + 3f * Vector3.up;
         }
     }
 }

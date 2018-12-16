@@ -10,6 +10,14 @@
     public sealed class GameController : MonoBehaviour
     {
         [SerializeField]
+        int m_numberOfDialoguesBeforeGameOver;
+        public int NumberOfDialoguesBeforeGameOver
+        {
+            get { return m_numberOfDialoguesBeforeGameOver; }
+            set { m_numberOfDialoguesBeforeGameOver = value; }
+        }
+
+        [SerializeField]
         DialogueGui m_dialogueGui;
         [SerializeField]
         CharacterManager m_characterManager;
@@ -19,10 +27,20 @@
         Character m_player;
         [SerializeField]
         SoundController m_soundController;
+        [SerializeField]
+        GameOverGui m_gameOverGui;
+        [SerializeField]
+        EventResolver m_eventResolver;
 
         void Start()
         {
             m_soundController.playAudio("BGM");
+            m_gameState.GameIsOver += Disable;
+        }
+
+        void Disable()
+        {
+            enabled = false;
         }
 
         public void StopTalking()
@@ -32,8 +50,18 @@
         public IEnumerator StopTalkingAsync()
         {
             if (m_dialogueGui.IsAnimating) yield break;
+            m_gameState.ActiveCharacter.ResumeAnimations();
             m_gameState.ActiveDialogue = null;
             yield return StartCoroutine(m_dialogueGui.HideAsync());
+            if(m_gameState.GetCompletedDialogues() >= m_numberOfDialoguesBeforeGameOver)
+            {
+                m_gameState.OnGameIsOver();
+                yield return StartCoroutine(m_gameOverGui.ShowAsync());
+            }
+            else
+            {
+                m_gameState.IgnoreInput = false;
+            }
         }
         public void TalkTo(string name)
         {
@@ -49,7 +77,11 @@
             if (string.IsNullOrEmpty(name)) yield break;
             if (m_dialogueGui.IsAnimating) yield break;
 
+            m_eventResolver.ForceEvent("SFX(START_DIALOGUE)");
+            m_gameState.IgnoreInput = true;
             m_gameState.ActiveDialogue = Dialogue.FromAsset(name);
+            m_gameState.ActiveCharacter.PauseAnimations();
+            m_gameState.ActiveCharacter.Face(m_player.transform);
             yield return StartCoroutine(AdvanceDialogueAsync());
         }
 
@@ -90,11 +122,8 @@
                 }
                 // No dialogue currently open, start one with the closest character
                 else if (m_gameState.ActiveCharacter != null) TalkTo(m_gameState.ActiveCharacter.Name);
-            }
-            else
-            {
-                // There is no one to interact with
-                // TODO: Add unpleasant sound
+                // No character in range, play SFX
+                else m_eventResolver.ForceEvent("SFX(WRONG)");
             }
         }
     }
