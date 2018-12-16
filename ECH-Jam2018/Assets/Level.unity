@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544affabc0dd6c84abd1e7d663e7cf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ownerName: Neighbour
+  m_ownerName: Freak
   m_isHome: 1
   m_manager: {fileID: 11400000, guid: 7de5695853800d34890fc26f918ed2d0, type: 2}
 --- !u!4 &85211429 stripped
@@ -1917,7 +1917,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1463090075363298, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 58737427132434874, guid: 5041f478731daed42a89da2bf2648ef0,
         type: 2}
@@ -23803,7 +23803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544affabc0dd6c84abd1e7d663e7cf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ownerName: Neighbour
+  m_ownerName: Player
   m_isHome: 1
   m_manager: {fileID: 11400000, guid: 7de5695853800d34890fc26f918ed2d0, type: 2}
 --- !u!1001 &1800297795
@@ -26185,8 +26185,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2130042875}
+  - component: {fileID: 2130042876}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ColliderManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26205,3 +26206,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2130042876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2130042874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2365cd38087f5774fb08426a0b90e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indoors:
+  - {fileID: 1716231920}
+  - {fileID: 1000916392}
+  - {fileID: 801084670}
+  - {fileID: 629857345}
+  outdoor_collidables: {fileID: 1056778001}
