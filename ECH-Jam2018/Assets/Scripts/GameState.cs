@@ -12,39 +12,15 @@
     [CreateAssetMenu(fileName = "GameState", menuName = "GameJam/Game State")]
     public sealed class GameState : ScriptableObject
     {
+        [SerializeField]
+        DialogueManager m_dialogueManager;
+
         [NonSerialized]
         bool m_ignoreInput = false;
         public bool IgnoreInput
         {
             get { return m_ignoreInput; }
             set { m_ignoreInput = value; }
-        }
-
-        [NonSerialized]
-        Action m_gameIsOver;
-        public event Action GameIsOver
-        {
-            add { m_gameIsOver += value; }
-            remove { m_gameIsOver -= value; }
-        }
-        public void OnGameIsOver()
-        {
-            if (m_gameIsOver != null) m_gameIsOver();
-        }
-
-        [SerializeField]
-        DialogueManager m_dialogueManager;
-
-        [NonSerialized]
-        Action m_activeCharacterChanged;
-        public event Action ActiveCharacterChanged
-        {
-            add { m_activeCharacterChanged += value; }
-            remove { m_activeCharacterChanged -= value; }
-        }
-        void OnActiveCharacterChanged()
-        {
-            if (m_activeCharacterChanged != null) m_activeCharacterChanged();
         }
 
         [NonSerialized]
@@ -56,6 +32,18 @@
                 if (m_activeCharacter == value) return;
                 m_activeCharacter = value;
                 OnActiveCharacterChanged();
+            }
+        }
+        [NonSerialized]
+        House m_activeHouse;
+        public House ActiveHouse
+        {
+            get { return m_activeHouse; }
+            set
+            {
+                if (m_activeHouse == value) return;
+                m_activeHouse = value;
+                OnActiveHouseChanged();
             }
         }
 
@@ -142,9 +130,68 @@
             add { m_eventHappened += value; }
             remove { m_eventHappened -= value; }
         }
-        void OnEventHappened(string eventName)
+        public void OnEventHappened(string eventName)
         {
             if (m_eventHappened != null) m_eventHappened(eventName);
+        }
+
+        [NonSerialized]
+        Action m_gameIsOver;
+        public event Action GameIsOver
+        {
+            add { m_gameIsOver += value; }
+            remove { m_gameIsOver -= value; }
+        }
+        public void OnGameIsOver()
+        {
+            if (m_gameIsOver != null) m_gameIsOver();
+        }
+        [NonSerialized]
+        Action m_startedTalking;
+        public event Action StartedTalking
+        {
+            add { m_startedTalking += value; }
+            remove { m_startedTalking -= value; }
+        }
+        public void OnStartedTalking()
+        {
+            if (m_startedTalking != null) m_startedTalking();
+        }
+
+        [NonSerialized]
+        Action m_stoppedTalking;
+        public event Action StoppedTalking
+        {
+            add { m_stoppedTalking += value; }
+            remove { m_stoppedTalking -= value; }
+        }
+        public void OnStoppedTalking()
+        {
+            if (m_stoppedTalking != null) m_stoppedTalking();
+        }
+
+        [NonSerialized]
+        Action m_activeCharacterChanged;
+        public event Action ActiveCharacterChanged
+        {
+            add { m_activeCharacterChanged += value; }
+            remove { m_activeCharacterChanged -= value; }
+        }
+        void OnActiveCharacterChanged()
+        {
+            if (m_activeCharacterChanged != null) m_activeCharacterChanged();
+        }
+
+        [NonSerialized]
+        Action m_activeHouseChanged;
+        public event Action ActiveHouseChanged
+        {
+            add { m_activeHouseChanged += value; }
+            remove { m_activeHouseChanged -= value; }
+        }
+        void OnActiveHouseChanged()
+        {
+            if (m_activeHouseChanged != null) m_activeHouseChanged();
         }
     }
 }

@@ -73,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463090075363298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.8, y: 4.25, z: 0}
+  m_LocalPosition: {x: 7, y: 2.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4393877506772760}
@@ -306,7 +306,7 @@ MonoBehaviour:
   volume: 0.5
   maxDist: 5
   audioList:
-  - {fileID: 8300000, guid: ed5fa3d9301be094fb124851536e2746, type: 3}
+  - {fileID: 8300000, guid: 5e6c07a5572ab274e92a2d688a50d015, type: 3}
   audioKey:
   - jump
 --- !u!114 &114180583683005976
@@ -346,6 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Player
   m_isPlayer: 1
+  m_renderer: {fileID: 0}
+  m_animator: {fileID: 0}
 --- !u!212 &212750471769759490
 SpriteRenderer:
   m_ObjectHideFlags: 1

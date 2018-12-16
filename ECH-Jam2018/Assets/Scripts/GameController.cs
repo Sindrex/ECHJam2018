@@ -1,5 +1,6 @@
 ﻿namespace GameJam
 {
+    using System;
     using System.Collections;
     using UnityEngine;
 
@@ -22,6 +23,8 @@
         [SerializeField]
         CharacterManager m_characterManager;
         [SerializeField]
+        HouseManager m_houseManager;
+        [SerializeField]
         GameState m_gameState;
         [SerializeField]
         Character m_player;
@@ -29,8 +32,6 @@
         SoundController m_soundController;
         [SerializeField]
         GameOverGui m_gameOverGui;
-        [SerializeField]
-        EventResolver m_eventResolver;
 
         void Start()
         {
@@ -62,6 +63,8 @@
             {
                 m_gameState.IgnoreInput = false;
             }
+            // Needs to be last or IgnoreInput would have an inconsistent state
+            m_gameState.OnStoppedTalking();
         }
         public void TalkTo(string name)
         {
@@ -77,11 +80,12 @@
             if (string.IsNullOrEmpty(name)) yield break;
             if (m_dialogueGui.IsAnimating) yield break;
 
-            m_eventResolver.ForceEvent("SFX(START_DIALOGUE)");
+            m_gameState.OnEventHappened("SFX(START_DIALOGUE)");
             m_gameState.IgnoreInput = true;
             m_gameState.ActiveDialogue = Dialogue.FromAsset(name);
             m_gameState.ActiveCharacter.PauseAnimations();
             m_gameState.ActiveCharacter.Face(m_player.transform);
+            m_gameState.OnStartedTalking();
             yield return StartCoroutine(AdvanceDialogueAsync());
         }
 
@@ -110,6 +114,10 @@
             if (character != null && distance < 3f) m_gameState.ActiveCharacter = character;
             else m_gameState.ActiveCharacter = null;
 
+            var house = m_houseManager.GetClosest(m_player.transform.position, out distance);
+            if (house != null && distance < 3f) m_gameState.ActiveHouse = house;
+            else m_gameState.ActiveHouse = null;
+
             if (Input.GetKeyDown(KeyCode.X))
             {
                 // A dialogue is currently open
@@ -123,7 +131,7 @@
                 // No dialogue currently open, start one with the closest character
                 else if (m_gameState.ActiveCharacter != null) TalkTo(m_gameState.ActiveCharacter.Name);
                 // No character in range, play SFX
-                else m_eventResolver.ForceEvent("SFX(WRONG)");
+                else m_gameState.OnEventHappened("SFX(WRONG)");
             }
         }
     }

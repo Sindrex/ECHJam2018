@@ -24,7 +24,7 @@
             }
         }
 
-        public House GetClosest(Vector3 position)
+        public House GetClosest(Vector3 position, out float distance)
         {
             float minDistanceSquared = float.MaxValue;
             House closest = null;
@@ -37,6 +37,8 @@
                     closest = house;
                 }
             }
+            if (closest != null) distance = Mathf.Sqrt(minDistanceSquared);
+            else distance = float.MaxValue;
             return closest;
         }
 
