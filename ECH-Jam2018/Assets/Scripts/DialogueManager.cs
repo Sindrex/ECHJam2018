@@ -11,6 +11,13 @@
         [NonSerialized]
         Dictionary<string, Dialogue> m_dialogueByName;
 
+        //[NonSerialized]
+        //Dictionary<GamePhase, Dictionary<string, Dialogue>> m_dialogueByName;
+        //[NonSerialized]
+        //Dictionary<string, Dialogue> m_dialogueByName;
+        //[NonSerialized]
+        //Dictionary<string, Dialogue> m_dialogueByName;
+
         void OnEnable()
         {
             if (m_dialogueByName != null) return;

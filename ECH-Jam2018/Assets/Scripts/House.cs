@@ -21,5 +21,16 @@
             get { return m_isHome; }
             set { m_isHome = value; }
         }
+
+        [SerializeField]
+        HouseManager m_manager;
+        void OnEnable()
+        {
+            m_manager.Add(this);
+        }
+        void OnDisable()
+        {
+            m_manager.Remove(this);
+        }
     }
 }

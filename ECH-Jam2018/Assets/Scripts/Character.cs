@@ -26,6 +26,17 @@
         [SerializeField]
         Animator m_animator;
 
+        [SerializeField]
+        CharacterManager m_manager;
+        void OnEnable()
+        {
+            m_manager.Add(this);
+        }
+        void OnDisable()
+        {
+            m_manager.Remove(this);
+        }
+
         public void Face(Transform other)
         {
             if(m_renderer != null) m_renderer.flipX = (other.position.x < transform.position.x);

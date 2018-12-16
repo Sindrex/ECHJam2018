@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
 
     /// <summary>
     /// This should be the only class ever modifying the GameState
@@ -32,6 +33,13 @@
         SoundController m_soundController;
         [SerializeField]
         GameOverGui m_gameOverGui;
+
+        void Awake()
+        {
+#if !UNITY_EDITOR
+            SceneManager.LoadScene("Level", LoadSceneMode.Additive);
+#endif
+        }
 
         void Start()
         {

@@ -8,20 +8,32 @@
     /// House related utilities like:
     ///  - Find closest house by position
     /// </summary>
-    public sealed class HouseManager : MonoBehaviour
+    [CreateAssetMenu(fileName = "HouseManager", menuName = "GameJam/House Manager")]
+    public sealed class HouseManager : ScriptableObject
     {
         [NonSerialized]
         Dictionary<string, House> m_housesByName;
 
-        void Awake()
+        void OnEnable()
         {
-            m_housesByName = new Dictionary<string, House>();
-            House[] houses = GetComponentsInChildren<House>();
-            foreach (var house in houses)
-            {
-                if (house == null) continue;
-                m_housesByName.Add(house.name, house);
-            }
+            if (m_housesByName == null) m_housesByName = new Dictionary<string, House>();
+            //House[] houses = GetComponentsInChildren<House>();
+            //foreach (var house in houses)
+            //{
+            //    if (house == null) continue;
+            //    m_housesByName.Add(house.name, house);
+            //}
+        }
+
+        public void Add(House house)
+        {
+            string name = house.OwnerName;
+            if (m_housesByName.ContainsKey(name)) m_housesByName[name] = house;
+            else m_housesByName.Add(name, house);
+        }
+        public bool Remove(House house)
+        {
+            return m_housesByName.Remove(house.OwnerName);
         }
 
         public House GetClosest(Vector3 position, out float distance)
@@ -42,7 +54,7 @@
             return closest;
         }
 
-        public House GetCharacter(string name)
+        public House GetHouse(string name)
         {
             return m_housesByName[name];
         }

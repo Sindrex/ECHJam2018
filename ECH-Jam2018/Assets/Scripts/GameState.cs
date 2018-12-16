@@ -16,6 +16,18 @@
         DialogueManager m_dialogueManager;
 
         [NonSerialized]
+        GamePhase m_phase = GamePhase.Introduction;
+        public GamePhase Phase
+        {
+            get { return m_phase; }
+            set {
+                if (m_phase == value) return;
+                m_phase = value;
+                OnPhaseChanged();
+            }
+        }
+
+        [NonSerialized]
         bool m_ignoreInput = false;
         public bool IgnoreInput
         {
@@ -193,5 +205,33 @@
         {
             if (m_activeHouseChanged != null) m_activeHouseChanged();
         }
+
+        [NonSerialized]
+        Action m_phaseChanged;
+        public event Action PhaseChanged
+        {
+            add { m_phaseChanged += value; }
+            remove { m_phaseChanged -= value; }
+        }
+        void OnPhaseChanged()
+        {
+            if (m_phaseChanged != null) m_phaseChanged();
+        }
+    }
+
+    public enum GamePhase
+    {
+        /// <summary>
+        /// Player talks about her intentions
+        /// </summary>
+        Introduction,
+        /// <summary>
+        /// Player gives gifts
+        /// </summary>
+        Gameplay,
+        /// <summary>
+        /// Ending cutscene
+        /// </summary>
+        Ending
     }
 }
