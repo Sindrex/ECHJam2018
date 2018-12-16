@@ -16,7 +16,7 @@
         DialogueManager m_dialogueManager;
 
         [NonSerialized]
-        GamePhase m_phase = GamePhase.Introduction;
+        GamePhase m_phase = (GamePhase)(-1);
         public GamePhase Phase
         {
             get { return m_phase; }
@@ -64,6 +64,18 @@
         }
 
         [NonSerialized]
+        bool m_isIndoor = true;
+        public bool IsIndoor
+        {
+            get { return m_isIndoor; }
+            set {
+                if (m_isIndoor == value) return;
+                m_isIndoor = value;
+                OnIndoorChanged();
+            }
+        }
+
+        [NonSerialized]
         Dictionary<GamePhase, Dictionary<string, int>> m_cursorByDialogueNameByPhase;
         void OnEnable()
         {
@@ -98,16 +110,19 @@
             }
         }
 
+        public bool IsPhaseOver()
+        {
+            return IsPhaseOver(Phase);
+        }
         public bool IsPhaseOver(GamePhase phase)
         {
-            int completedCount = 0;
             int dialoguesCount = m_dialogueManager.GetDialoguesCount(phase);
             for (int i = 0; i < dialoguesCount; i++)
             {
                 var dialogue = m_dialogueManager.GetDialogue(phase, i);
-                if (IsOver(phase, dialogue)) completedCount++;
+                if (dialogue.IsMandatory && !IsOver(phase, dialogue)) return false;
             }
-            return dialoguesCount == completedCount;
+            return true;
         }
 
         public bool IsDialogueOver
@@ -278,6 +293,31 @@
         void OnChanged()
         {
             if (m_changed != null) m_changed();
+        }
+
+        [NonSerialized]
+        Action m_indoorChanged;
+        public event Action IndoorChanged
+        {
+            add { m_indoorChanged += value; }
+            remove { m_indoorChanged -= value; }
+        }
+        void OnIndoorChanged()
+        {
+            if (m_indoorChanged != null) m_indoorChanged();
+            OnChanged();
+        }
+
+        [NonSerialized]
+        Action m_doorKnocked;
+        public event Action DoorKnocked
+        {
+            add { m_doorKnocked += value; }
+            remove { m_doorKnocked -= value; }
+        }
+        public void OnDoorKnocked()
+        {
+            if (m_doorKnocked != null) m_doorKnocked();
         }
     }
 }

@@ -78,7 +78,11 @@
 
         string GetHouseInteraction()
         {
-            if (m_gameState.ActiveHouse.IsHome) return "Enter home";
+            if (m_gameState.ActiveHouse.IsHome)
+            {
+                if(m_gameState.IsIndoor) return "Exit home";
+                else return "Enter home";
+            }
             else return "Knock the door";
         }
     }

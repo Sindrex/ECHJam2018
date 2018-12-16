@@ -40,6 +40,14 @@
             set { m_finalWords = value; }
         }
 
+        [SerializeField]
+        bool m_isMandatory = true;
+        public bool IsMandatory
+        {
+            get { return m_isMandatory; }
+            set { m_isMandatory = value; }
+        }
+
         public static bool Exists(GamePhase phase, string dialogueName)
         {
             var asset = Resources.Load<TextAsset>(string.Format("Dialogue/{0}/{1}", phase, dialogueName));

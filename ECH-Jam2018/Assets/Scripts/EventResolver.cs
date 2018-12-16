@@ -7,6 +7,8 @@
         [SerializeField]
         GameState m_gameState;
         [SerializeField]
+        GameController m_gameController;
+        [SerializeField]
         SoundController m_soundController;
 
         void OnEnable()
@@ -25,9 +27,13 @@
                 var soundName = currentEvent.Substring(4, currentEvent.Length - 5);
                 m_soundController.playAudio(soundName);
             }
-            //else if (eventName == "SUCCESS")
+            //else if (currentEvent == "ENTER_HOUSE")
             //{
-            //    // Do something
+            //    m_gameController.EnterHome();
+            //}
+            //else if (currentEvent == "EXIT_HOUSE")
+            //{
+            //    m_gameController.ExitHome();
             //}
             else
             {

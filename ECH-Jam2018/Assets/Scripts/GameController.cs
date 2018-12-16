@@ -29,10 +29,16 @@
         GameState m_gameState;
         [SerializeField]
         Character m_player;
+        public Character Player
+        {
+            get { return m_player; }
+        }
         [SerializeField]
         SoundController m_soundController;
         [SerializeField]
         GameOverGui m_gameOverGui;
+        [NonSerialized]
+        ColliderManager m_colliderManager;
 
         void Awake()
         {
@@ -43,8 +49,12 @@
 
         void Start()
         {
+            m_colliderManager = FindObjectOfType<ColliderManager>();
+            if (m_colliderManager == null) throw new Exception("Can't find ColliderManager");
             m_soundController.playAudio("BGM");
             m_gameState.GameIsOver += Disable;
+            m_gameState.Phase = GamePhase.Introduction;
+            EnterHouse();
         }
 
         void Disable()
@@ -59,9 +69,9 @@
         public IEnumerator StopTalkingAsync()
         {
             if (m_dialogueGui.IsAnimating) yield break;
+            yield return StartCoroutine(m_dialogueGui.HideAsync());
             m_gameState.ActiveCharacter.ResumeAnimations();
             m_gameState.ActiveDialogue = null;
-            yield return StartCoroutine(m_dialogueGui.HideAsync());
             m_gameState.IgnoreInput = false;
             // Needs to be last or IgnoreInput would have an inconsistent state
             m_gameState.OnStoppedTalking();
@@ -85,6 +95,7 @@
             m_gameState.ActiveDialogue = Dialogue.FromAsset(m_gameState.Phase, m_gameState.ActiveCharacter.Name);
             m_gameState.ActiveCharacter.PauseAnimations();
             m_gameState.ActiveCharacter.Face(m_player.transform);
+            m_player.Face(m_gameState.ActiveCharacter.transform);
             m_gameState.OnStartedTalking();
             yield return StartCoroutine(AdvanceDialogueAsync());
         }
@@ -109,8 +120,11 @@
 
         public void InteractWithHouse()
         {
-            m_gameState.IgnoreInput = true;
-            if (m_gameState.ActiveHouse.IsHome) EnterHome();
+            if (m_gameState.ActiveHouse.IsHome)
+            {
+                if (m_gameState.IsIndoor) ExitHouse();
+                else EnterHouse();
+            }
             else KnockDoor();
         }
 
@@ -126,27 +140,50 @@
                     m_gameState.Phase = GamePhase.Ending;
                     break;
             }
-            if (m_gameState.IgnoreInput) m_gameState.IgnoreInput = false;
+            //if (m_gameState.IgnoreInput) m_gameState.IgnoreInput = false;
+        }
+        public void ExitHouse()
+        {
+            m_gameState.IsIndoor = false;
+            m_colliderManager.disbleIndoors();
+        }
+        public void EnterHouse()
+        {
+            m_gameState.IsIndoor = true;
+            m_colliderManager.enableIndoors();
+            //if (m_gameState.IsPhaseOver(m_gameState.Phase))
+            //{
+            //    AdvancePhase();
+            //    //m_gameState.OnGameIsOver();
+            //    // Start ending cutscene
+            //    //StartCoroutine(m_gameOverGui.ShowAsync());
+            //}
+            //else
+            //{
+            //    m_gameState.ActiveCharacter = m_player;
+            //    TalkToActiveCharacter();
+            //}
         }
 
-        public void EnterHome()
+        public void GameOver()
         {
-            if (m_gameState.IsPhaseOver(m_gameState.Phase))
-            {
-                AdvancePhase();
-                //m_gameState.OnGameIsOver();
-                // Start ending cutscene
-                //StartCoroutine(m_gameOverGui.ShowAsync());
-            }
-            else
-            {
-                m_gameState.ActiveCharacter = m_player;
-                TalkToActiveCharacter();
-            }
+            m_gameState.IgnoreInput = true;
+            m_gameState.OnGameIsOver();
+            //Start ending cutscene
+            StartCoroutine(m_gameOverGui.ShowAsync());
+        }
+
+        public void TalkToSelf()
+        {
+            m_gameState.ActiveCharacter = m_player;
+            TalkToActiveCharacter();
         }
 
         public void KnockDoor()
         {
+            m_player.Face(m_gameState.ActiveHouse.transform);
+            m_gameState.IgnoreInput = true;
+            m_gameState.OnDoorKnocked();
             m_gameState.OnEventHappened("SFX(KNOCK)");
         }
 
@@ -183,6 +220,7 @@
                 }
             }
 
+            if (TemporarilyDisabled) return;
             if (Input.GetKeyDown(KeyCode.X))
             {
                 // A dialogue is currently open
@@ -200,11 +238,13 @@
                 // Nothing to interact with, here. Play SFX for invalid actions
                 else m_gameState.OnEventHappened("SFX(WRONG)");
             }
-
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                AdvancePhase();
-            }
+        }
+        [NonSerialized]
+        bool m_temporarilyDisabled;
+        public bool TemporarilyDisabled
+        {
+            get { return m_temporarilyDisabled; }
+            set { m_temporarilyDisabled = value; }
         }
     }
 }

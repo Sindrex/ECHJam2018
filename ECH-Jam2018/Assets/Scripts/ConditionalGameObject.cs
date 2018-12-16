@@ -5,6 +5,14 @@
     public abstract class ConditionalGameObject : MonoBehaviour
     {
         [SerializeField]
+        GameObject m_target;
+        public GameObject Target
+        {
+            get { return m_target; }
+            set { m_target = value; }
+        }
+
+        [SerializeField]
         GameState m_gameState;
         protected GameState GameState
         {
@@ -22,7 +30,7 @@
 
         void CheckConditionForActivation()
         {
-            gameObject.SetActive(Condition());
+            Target.SetActive(Condition());
         }
 
         protected abstract bool Condition();

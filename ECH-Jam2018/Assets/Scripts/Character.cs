@@ -37,9 +37,21 @@
             m_manager.Remove(this);
         }
 
+        public CharacterFacing Facing
+        {
+            get
+            {
+                return (m_renderer.flipX) ? CharacterFacing.Left : CharacterFacing.Right;
+            }
+            set
+            {
+                if (m_renderer != null) m_renderer.flipX = (value == CharacterFacing.Left);
+            }
+        }
+
         public void Face(Transform other)
         {
-            if(m_renderer != null) m_renderer.flipX = (other.position.x < transform.position.x);
+            Facing = (other.position.x < transform.position.x) ? CharacterFacing.Left : CharacterFacing.Right;
         }
         public void PauseAnimations()
         {
