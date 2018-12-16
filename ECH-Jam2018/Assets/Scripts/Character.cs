@@ -26,17 +26,28 @@
         [SerializeField]
         Animator m_animator;
 
+        [SerializeField]
+        CharacterManager m_manager;
+        void OnEnable()
+        {
+            m_manager.Add(this);
+        }
+        void OnDisable()
+        {
+            m_manager.Remove(this);
+        }
+
         public void Face(Transform other)
         {
-            m_renderer.flipX = (other.position.x < transform.position.x);
+            if(m_renderer != null) m_renderer.flipX = (other.position.x < transform.position.x);
         }
         public void PauseAnimations()
         {
-            m_animator.enabled = false;
+            if(m_animator != null) m_animator.enabled = false;
         }
         public void ResumeAnimations()
         {
-            m_animator.enabled = true;
+            if (m_animator != null) m_animator.enabled = true;
         }
     }
 }

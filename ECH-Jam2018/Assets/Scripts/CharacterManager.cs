@@ -10,20 +10,32 @@
     ///  - Find closest character by position
     ///  - Extract character name from a dialogue "Bob: I used to work for..." -> "Bob"
     /// </summary>
-    public sealed class CharacterManager : MonoBehaviour
+    [CreateAssetMenu(fileName = "CharacterManager", menuName = "GameJam/Character Manager")]
+    public sealed class CharacterManager : ScriptableObject
     {
         [NonSerialized]
         Dictionary<string, Character> m_charactersByName;
 
-        void Awake()
+        void OnEnable()
         {
-            m_charactersByName = new Dictionary<string, Character>();
-            Character[] characters = GetComponentsInChildren<Character>();
-            foreach (var character in characters)
-            {
-                if (character == null) continue;
-                m_charactersByName.Add(character.Name, character);
-            }
+            if(m_charactersByName == null) m_charactersByName = new Dictionary<string, Character>();
+            //Character[] characters = GetComponentsInChildren<Character>();
+            //foreach (var character in characters)
+            //{
+            //    if (character == null) continue;
+            //    m_charactersByName.Add(character.Name, character);
+            //}
+        }
+
+        public void Add(Character character)
+        {
+            string name = character.Name;
+            if (m_charactersByName.ContainsKey(name)) m_charactersByName[name] = character;
+            else m_charactersByName.Add(name, character);
+        }
+        public bool Remove(Character character)
+        {
+            return m_charactersByName.Remove(character.Name);
         }
 
         public string GetSpeakerName(string line)

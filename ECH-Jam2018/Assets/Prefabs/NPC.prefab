@@ -74,6 +74,7 @@ MonoBehaviour:
   m_isPlayer: 0
   m_renderer: {fileID: 212500642242129074}
   m_animator: {fileID: 95159704994696398}
+  m_manager: {fileID: 11400000, guid: 830c39246a21f33448cd546ea0187c6a, type: 2}
 --- !u!212 &212500642242129074
 SpriteRenderer:
   m_ObjectHideFlags: 1

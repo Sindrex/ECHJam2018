@@ -7,49 +7,30 @@
     public sealed class House : MonoBehaviour
     {
         [SerializeField]
-        float m_doorSpeed = 1f;
-        public float DoorSpeed
+        string m_ownerName;
+        public string OwnerName
         {
-            get { return m_doorSpeed; }
-            set { m_doorSpeed = value; }
+            get { return m_ownerName; }
+            set { m_ownerName = value; }
         }
 
         [SerializeField]
-        Transform m_door;
-        public Transform Door
+        bool m_isHome = false;
+        public bool IsHome
         {
-            get { return m_door; }
-            set { m_door = value; }
+            get { return m_isHome; }
+            set { m_isHome = value; }
         }
 
         [SerializeField]
-        bool m_isDoorOpen;
-        public bool DoorIsOpen
+        HouseManager m_manager;
+        void OnEnable()
         {
-            get { return m_isDoorOpen; }
+            m_manager.Add(this);
         }
-
-        [NonSerialized]
-        float m_originalScaleX;
-        [NonSerialized]
-        Vector3 m_targetScale;
-        void Awake()
+        void OnDisable()
         {
-            m_originalScaleX = Door.localScale.x;
-            m_targetScale = Door.localScale;
-        }
-
-        public void ToggleDoor()
-        {
-            m_isDoorOpen = !DoorIsOpen;
-            m_targetScale = Door.localScale;
-            if (DoorIsOpen) m_targetScale.x = -m_originalScaleX;
-            else m_targetScale.x = m_originalScaleX;
-        }
-
-        void Update()
-        {
-            Door.localScale = Vector3.MoveTowards(Door.localScale, m_targetScale, m_doorSpeed * Time.deltaTime);
+            m_manager.Remove(this);
         }
     }
 }
