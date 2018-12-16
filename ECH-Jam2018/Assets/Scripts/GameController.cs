@@ -54,35 +54,27 @@
             m_gameState.ActiveCharacter.ResumeAnimations();
             m_gameState.ActiveDialogue = null;
             yield return StartCoroutine(m_dialogueGui.HideAsync());
-            if(m_gameState.GetCompletedDialogues() >= m_numberOfDialoguesBeforeGameOver)
-            {
-                m_gameState.OnGameIsOver();
-                yield return StartCoroutine(m_gameOverGui.ShowAsync());
-            }
-            else
-            {
-                m_gameState.IgnoreInput = false;
-            }
+            m_gameState.IgnoreInput = false;
             // Needs to be last or IgnoreInput would have an inconsistent state
             m_gameState.OnStoppedTalking();
         }
-        public void TalkTo(string name)
+        public void TalkToActiveCharacter()
         {
-            StartCoroutine(TalkToAsync(name));
+            StartCoroutine(TalkToActiveCharacterAsync());
         }
         public void AdvanceDialogue()
         {
             StartCoroutine(AdvanceDialogueAsync());
         }
 
-        public IEnumerator TalkToAsync(string name)
+        public IEnumerator TalkToActiveCharacterAsync()
         {
-            if (string.IsNullOrEmpty(name)) yield break;
+            if (m_gameState.ActiveCharacter == null) yield break;
             if (m_dialogueGui.IsAnimating) yield break;
 
             m_gameState.OnEventHappened("SFX(START_DIALOGUE)");
             m_gameState.IgnoreInput = true;
-            m_gameState.ActiveDialogue = Dialogue.FromAsset(name);
+            m_gameState.ActiveDialogue = Dialogue.FromAsset(m_gameState.ActiveCharacter.Name);
             m_gameState.ActiveCharacter.PauseAnimations();
             m_gameState.ActiveCharacter.Face(m_player.transform);
             m_gameState.OnStartedTalking();
@@ -107,16 +99,51 @@
             yield return StartCoroutine(m_dialogueGui.ShowLineAsync(closeUp, speakerName, line));
         }
 
+        public void InteractWithHouse()
+        {
+            m_gameState.IgnoreInput = true;
+            if (m_gameState.ActiveHouse.IsHome) EnterHome();
+            else KnockDoor();
+        }
+
+        public void EnterHome()
+        {
+            if (m_gameState.GetCompletedDialogues() >= m_numberOfDialoguesBeforeGameOver)
+            {
+                m_gameState.OnGameIsOver();
+                // Start ending cutscene
+                StartCoroutine(m_gameOverGui.ShowAsync());
+            }
+            else
+            {
+                m_gameState.ActiveCharacter = m_player;
+                TalkToActiveCharacter();
+            }
+        }
+
+        public void KnockDoor()
+        {
+            m_gameState.OnEventHappened("SFX(KNOCK)");
+        }
+
         void Update()
         {
-            float distance;
-            var character = m_characterManager.GetClosest(m_player.transform.position, out distance);
-            if (character != null && distance < 3f) m_gameState.ActiveCharacter = character;
-            else m_gameState.ActiveCharacter = null;
+            // Only look for the closest character/house if not in a dialogue
+            if(m_gameState.ActiveDialogue == null)
+            {
+                float distance;
+                var character = m_characterManager.GetClosest(m_player.transform.position, out distance);
+                if (character != null && distance < 3f) m_gameState.ActiveCharacter = character;
+                else
+                {
+                    m_gameState.ActiveCharacter = null;
 
-            var house = m_houseManager.GetClosest(m_player.transform.position, out distance);
-            if (house != null && distance < 3f) m_gameState.ActiveHouse = house;
-            else m_gameState.ActiveHouse = null;
+                    // Only check houses interaction if no character is available
+                    var house = m_houseManager.GetClosest(m_player.transform.position, out distance);
+                    if (house != null && distance < 3f) m_gameState.ActiveHouse = house;
+                    else m_gameState.ActiveHouse = null;
+                }
+            }
 
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -128,9 +155,11 @@
                     // There are more lines, go on
                     else AdvanceDialogue();
                 }
-                // No dialogue currently open, start one with the closest character
-                else if (m_gameState.ActiveCharacter != null) TalkTo(m_gameState.ActiveCharacter.Name);
-                // No character in range, play SFX
+                // No dialogue currently open, but there's someone in range, let's talk to him
+                else if (m_gameState.ActiveCharacter != null) TalkToActiveCharacter();
+                // No character in range, but there's a house
+                else if (m_gameState.ActiveHouse != null) InteractWithHouse();
+                // Nothing to interact with, here. Play SFX for invalid actions
                 else m_gameState.OnEventHappened("SFX(WRONG)");
             }
         }

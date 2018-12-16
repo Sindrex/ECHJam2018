@@ -1984,7 +1984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c2159b0dfed0b438ec9b562908ab8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_numberOfDialoguesBeforeGameOver: 10
+  m_numberOfDialoguesBeforeGameOver: 2
   m_dialogueGui: {fileID: 1896450056}
   m_characterManager: {fileID: 2104421243}
   m_houseManager: {fileID: 2104421245}
@@ -2074,7 +2074,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Happy Holidays
+  m_text: Ending Cutscene
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}

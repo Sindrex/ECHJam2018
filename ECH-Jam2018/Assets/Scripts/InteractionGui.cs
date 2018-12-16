@@ -52,38 +52,34 @@
         // Self manage
         void OnEnable()
         {
-            m_gameState.ActiveCharacterChanged += ShowTalkInteractionIfInRange;
+            m_gameState.ActiveCharacterChanged += ShowIfInRange;
             m_gameState.StartedTalking += Hide;
-            m_gameState.StoppedTalking += ShowTalkInteractionIfInRange;
+            m_gameState.StoppedTalking += ShowIfInRange;
 
-            m_gameState.ActiveHouseChanged += ShowHouseInteractionIfInRange;
+            m_gameState.ActiveHouseChanged += ShowIfInRange;
         }
 
         void OnDisable()
         {
-            m_gameState.ActiveCharacterChanged -= ShowTalkInteractionIfInRange;
+            m_gameState.ActiveCharacterChanged -= ShowIfInRange;
             m_gameState.StartedTalking -= Hide;
-            m_gameState.StoppedTalking -= ShowTalkInteractionIfInRange;
+            m_gameState.StoppedTalking -= ShowIfInRange;
 
-            m_gameState.ActiveHouseChanged -= ShowHouseInteractionIfInRange;
+            m_gameState.ActiveHouseChanged -= ShowIfInRange;
         }
 
-        void ShowTalkInteractionIfInRange()
+        void ShowIfInRange()
         {
             if (m_gameState.IgnoreInput) Hide();
-            else if (m_gameState.ActiveCharacter != null) Show("Talk to " + m_gameState.ActiveCharacter.Name); 
+            else if (m_gameState.ActiveCharacter != null) Show("Talk to " + m_gameState.ActiveCharacter.Name);
+            else if (m_gameState.ActiveHouse != null) Show(GetHouseInteraction());
             else Hide();
         }
 
-        void ShowHouseInteractionIfInRange()
+        string GetHouseInteraction()
         {
-            if (m_gameState.IgnoreInput) Hide();
-            else if (m_gameState.ActiveHouse != null)
-            {
-                if (m_gameState.ActiveHouse.IsHome) Show("Enter home");
-                else Show("Knock the door");
-            }
-            else Hide();
+            if (m_gameState.ActiveHouse.IsHome) return "Enter home";
+            else return "Knock the door";
         }
     }
 }
