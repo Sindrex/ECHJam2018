@@ -46,6 +46,8 @@ public class SoundController : MonoBehaviour {
         int index = System.Array.IndexOf(audioKey, key);
         if(index >= 0)
         {
+            //print(index);
+            //print(source);
             source.PlayOneShot(audioList[index]);
         }
     }
