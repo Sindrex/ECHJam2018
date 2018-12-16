@@ -6,6 +6,8 @@
     {
         [SerializeField]
         GameState m_gameState;
+        [SerializeField]
+        Transform m_selection;
 
         void Awake()
         {
@@ -19,12 +21,16 @@
 
         void MoveOnActiveCharacter()
         {
-            gameObject.SetActive(m_gameState.ActiveCharacter != null);
-        }
-
-        void Update()
-        {
-            if (m_gameState.ActiveCharacter != null) transform.position = m_gameState.ActiveCharacter.transform.position + 3f * Vector3.up;
+            if(m_gameState.ActiveCharacter != null)
+            {
+                m_selection.SetParent(m_gameState.ActiveCharacter.SelectionParent, false);
+                m_selection.gameObject.SetActive(true);
+            }
+            else
+            {
+                m_selection.SetParent(transform, false);
+                m_selection.gameObject.SetActive(false);
+            }
         }
     }
 }

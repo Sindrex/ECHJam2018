@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Neighbor
   m_isPlayer: 0
+  m_selectionParent: {fileID: 4091736013532378}
   m_renderer: {fileID: 212326139407399474}
   m_animator: {fileID: 95597427905547458}
   m_manager: {fileID: 11400000, guid: 830c39246a21f33448cd546ea0187c6a, type: 2}

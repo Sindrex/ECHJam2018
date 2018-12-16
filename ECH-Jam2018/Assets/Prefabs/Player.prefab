@@ -32,7 +32,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1804987671352562
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,13 +320,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc251efbb898dc94b80e9313cf91c0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  sprintSpeed: 13
+  moveSpeed: 10
+  sprintSpeed: 14
   jumpPower: 18
   jumpGroundDist: 0
-  jumpRaycastStart: -0.05
+  jumpRaycastStart: 0.1
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  maxFallVelocity: 2
   jumping: 0
   running: 0
   spriteRenderer: {fileID: 212750471769759490}

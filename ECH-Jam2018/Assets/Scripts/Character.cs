@@ -22,6 +22,12 @@
         }
 
         [SerializeField]
+        Transform m_selectionParent;
+        public Transform SelectionParent
+        {
+            get { return m_selectionParent; }
+        }
+        [SerializeField]
         SpriteRenderer m_renderer;
         [SerializeField]
         Animator m_animator;

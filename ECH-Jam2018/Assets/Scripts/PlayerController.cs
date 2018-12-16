@@ -24,6 +24,7 @@
         public float jumpRaycastStart;
         public float fallMultiplier = 2.5f;
         public float lowJumpMultiplier = 2f;
+        public float maxFallVelocity = 2;
 
         public bool jumping = false;
         public bool running = false;
@@ -82,7 +83,7 @@
         private void FixedUpdate()
         {
             FixSmallVelocity();
-            if (rb.velocity.y < 0)
+            if (rb.velocity.y < 0 && rb.velocity.y > -maxFallVelocity)
             {
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
@@ -99,7 +100,10 @@
             // Ignore input if needed
             if (gameState.IgnoreInput) return;
             if (horizontalAxis != 0f) spriteRenderer.flipX = (horizontalAxis < 0);
+
             transform.Translate(horizontalAxis * currentMoveSpeed * Time.deltaTime, 0, 0);
+            //rb.velocity += Vector2.right * horizontalAxis * currentMoveSpeed * Time.deltaTime * 5;
+            //rb.AddForce(Vector2.right * horizontalAxis * currentMoveSpeed *7);
         }
 
         void FixSmallVelocity()
