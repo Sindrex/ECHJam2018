@@ -82,7 +82,7 @@
 
             m_gameState.OnEventHappened("SFX(START_DIALOGUE)");
             m_gameState.IgnoreInput = true;
-            m_gameState.ActiveDialogue = Dialogue.FromAsset(m_gameState.ActiveCharacter.Name);
+            m_gameState.ActiveDialogue = Dialogue.FromAsset(m_gameState.Phase, m_gameState.ActiveCharacter.Name);
             m_gameState.ActiveCharacter.PauseAnimations();
             m_gameState.ActiveCharacter.Face(m_player.transform);
             m_gameState.OnStartedTalking();
@@ -114,13 +114,29 @@
             else KnockDoor();
         }
 
+        public void AdvancePhase()
+        {
+            switch (m_gameState.Phase)
+            {
+                case GamePhase.Introduction:
+                    m_gameState.Phase = GamePhase.Gameplay;
+                    break;
+                case GamePhase.Gameplay:
+                default:
+                    m_gameState.Phase = GamePhase.Ending;
+                    break;
+            }
+            if (m_gameState.IgnoreInput) m_gameState.IgnoreInput = false;
+        }
+
         public void EnterHome()
         {
-            if (m_gameState.GetCompletedDialogues() >= m_numberOfDialoguesBeforeGameOver)
+            if (m_gameState.IsPhaseOver(m_gameState.Phase))
             {
-                m_gameState.OnGameIsOver();
+                AdvancePhase();
+                //m_gameState.OnGameIsOver();
                 // Start ending cutscene
-                StartCoroutine(m_gameOverGui.ShowAsync());
+                //StartCoroutine(m_gameOverGui.ShowAsync());
             }
             else
             {
@@ -136,12 +152,26 @@
 
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_WEBPLAYER
+                Application.OpenURL(webplayerQuitURL);
+#else
+                Application.Quit();
+#endif
+            }
+
             // Only look for the closest character/house if not in a dialogue
-            if(m_gameState.ActiveDialogue == null)
+            if (m_gameState.ActiveDialogue == null)
             {
                 float distance;
                 var character = m_characterManager.GetClosest(m_player.transform.position, out distance);
-                if (character != null && distance < 3f) m_gameState.ActiveCharacter = character;
+                if (character != null && distance < 3f && Dialogue.Exists(m_gameState.Phase, character.Name))
+                {
+                    m_gameState.ActiveCharacter = character;
+                }
                 else
                 {
                     m_gameState.ActiveCharacter = null;
@@ -169,6 +199,11 @@
                 else if (m_gameState.ActiveHouse != null) InteractWithHouse();
                 // Nothing to interact with, here. Play SFX for invalid actions
                 else m_gameState.OnEventHappened("SFX(WRONG)");
+            }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                AdvancePhase();
             }
         }
     }

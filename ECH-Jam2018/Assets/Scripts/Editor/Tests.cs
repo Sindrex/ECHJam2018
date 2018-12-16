@@ -5,17 +5,17 @@
 
     public static class Tests
     {
-        [MenuItem("Tests/Load Dialogue")]
-        public static void LoadDialogue()
-        {
-            Dialogue dialogue = Dialogue.FromAsset("EmptyDialogue");
-            Debug.LogFormat("Loaded dialogue \"{0}\"", dialogue.Name);
-            foreach (var line in dialogue.Lines)
-            {
-                Debug.Log(line);
-            }
-            Debug.Log(dialogue.FinalWords);
-        }
+        //[MenuItem("Tests/Load Dialogue")]
+        //public static void LoadDialogue()
+        //{
+        //    Dialogue dialogue = Dialogue.FromAsset("EmptyDialogue");
+        //    Debug.LogFormat("Loaded dialogue \"{0}\"", dialogue.Name);
+        //    foreach (var line in dialogue.Lines)
+        //    {
+        //        Debug.Log(line);
+        //    }
+        //    Debug.Log(dialogue.FinalWords);
+        //}
         [MenuItem("Tests/Load CloseUp")]
         public static void LoadCloseUp()
         {

@@ -40,9 +40,14 @@
             set { m_finalWords = value; }
         }
 
-        public static Dialogue FromAsset(string dialogueName)
+        public static bool Exists(GamePhase phase, string dialogueName)
         {
-            var asset = Resources.Load<TextAsset>("Dialogue/" + dialogueName);
+            var asset = Resources.Load<TextAsset>(string.Format("Dialogue/{0}/{1}", phase, dialogueName));
+            return asset != null;
+        }
+        public static Dialogue FromAsset(GamePhase phase, string dialogueName)
+        {
+            var asset = Resources.Load<TextAsset>(string.Format("Dialogue/{0}/{1}", phase, dialogueName));
             var json = asset.text;
             return FromJson(dialogueName, json);
         }
