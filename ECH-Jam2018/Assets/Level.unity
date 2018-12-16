@@ -156,6 +156,11 @@ MonoBehaviour:
   m_ownerName: Freak
   m_isHome: 1
   m_manager: {fileID: 11400000, guid: 7de5695853800d34890fc26f918ed2d0, type: 2}
+--- !u!1 &77440289 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1554226703961558, guid: 5a0c5f2b47908b947aa031ed58050199,
+    type: 2}
+  m_PrefabInternal: {fileID: 2049149270}
 --- !u!4 &85211429 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4600206828029392, guid: c87b9be32b9cf5d45a56860016cdbe52,
@@ -1855,7 +1860,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4030159331393320, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -28.9
+      value: -98.68
       objectReference: {fileID: 0}
     - target: {fileID: 4030159331393320, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1884,6 +1889,10 @@ Prefab:
     - target: {fileID: 4030159331393320, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1463090075363298, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
@@ -26153,11 +26162,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4722169209981144, guid: 5a0c5f2b47908b947aa031ed58050199, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -95.638824
+      value: -97.615
       objectReference: {fileID: 0}
     - target: {fileID: 4722169209981144, guid: 5a0c5f2b47908b947aa031ed58050199, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.074614
+      value: -2.775
       objectReference: {fileID: 0}
     - target: {fileID: 4722169209981144, guid: 5a0c5f2b47908b947aa031ed58050199, type: 2}
       propertyPath: m_LocalPosition.z
@@ -26182,6 +26191,10 @@ Prefab:
     - target: {fileID: 4722169209981144, guid: 5a0c5f2b47908b947aa031ed58050199, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554226703961558, guid: 5a0c5f2b47908b947aa031ed58050199, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0c5f2b47908b947aa031ed58050199, type: 2}
@@ -26263,4 +26276,5 @@ MonoBehaviour:
   - {fileID: 1000916392}
   - {fileID: 801084670}
   - {fileID: 629857345}
+  - {fileID: 77440289}
   outdoor_collidables: {fileID: 1056778001}
