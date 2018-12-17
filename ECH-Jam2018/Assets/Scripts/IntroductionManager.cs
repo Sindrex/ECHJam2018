@@ -11,18 +11,19 @@
 
         void OnEnable()
         {
-            m_gameState.IndoorChanged += ExitHouseIfComplete;
+            m_gameState.StoppedTalking += AdvancePhase;
             m_gameController.TalkToSelf();
         }
+
+
         void OnDisable()
         {
-            m_gameState.IndoorChanged -= ExitHouseIfComplete;
+            m_gameState.StoppedTalking -= AdvancePhase;
         }
 
-        void ExitHouseIfComplete()
+        void AdvancePhase()
         {
             if (!m_gameState.IsPhaseOver()) return;
-            m_gameController.ExitHouse();
             m_gameController.AdvancePhase();
         }
     }

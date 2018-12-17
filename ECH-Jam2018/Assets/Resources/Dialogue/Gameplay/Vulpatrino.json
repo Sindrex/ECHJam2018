@@ -1,0 +1,8 @@
+{
+    "m_defaultSpeaker": "Vulpatrino",
+    "m_lines": [
+        "Emily: There's a name on the label: \"Vulpatrino\""
+    ],
+	"m_isMandatory": "false",
+    "m_finalWords": "Meooow"
+}

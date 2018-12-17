@@ -59,6 +59,7 @@
             m_gameState.StartedTalking += Hide;
             m_gameState.StoppedTalking += ShowIfInRange;
 
+            m_gameState.IndoorChanged += ShowIfInRange;
             m_gameState.ActiveHouseChanged += ShowIfInRange;
         }
 
@@ -69,6 +70,7 @@
             m_gameState.StartedTalking -= Hide;
             m_gameState.StoppedTalking -= ShowIfInRange;
 
+            m_gameState.IndoorChanged -= ShowIfInRange;
             m_gameState.ActiveHouseChanged -= ShowIfInRange;
         }
 
@@ -79,9 +81,22 @@
 
         void ShowIfInRange()
         {
+            if (m_gameState.IsIndoor) ShowIndoor();
+            else ShowOutdoor();
+        }
+
+        void ShowIndoor()
+        {
             if (m_gameState.IgnoreInput || m_gameController.TemporarilyDisabled) Hide();
-            else if (m_gameState.ActiveCharacter != null) Show("Talk to " + m_gameState.ActiveCharacter.Name);
+            else if (m_gameState.ActiveCharacter != null) Show("Talk");
             else if (m_gameState.ActiveHouse != null) Show(GetHouseInteraction());
+            else Hide();
+        }
+        void ShowOutdoor()
+        {
+            if (m_gameState.IgnoreInput || m_gameController.TemporarilyDisabled) Hide();
+            else if (m_gameState.ActiveHouse != null) Show(GetHouseInteraction());
+            else if (m_gameState.ActiveCharacter != null) Show("Talk");
             else Hide();
         }
 

@@ -88,7 +88,7 @@
             cain.StandStill(true);
             oneil.StandStill(true);
             rich.StandStill(true);
-            rich.Show();
+            rich.Visible = true;
 
             player.Facing = CharacterFacing.Left;
             rich.Facing = CharacterFacing.Right;

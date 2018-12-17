@@ -55,13 +55,10 @@
             }
         }
 
-        public void Show()
+        public bool Visible
         {
-            m_renderer.enabled = true;
-        }
-        public void Hide()
-        {
-            m_renderer.enabled = false;
+            get { return m_renderer.enabled; }
+            set { m_renderer.enabled = value; }
         }
 
         public void Face(Transform other)

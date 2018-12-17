@@ -1,0 +1,30 @@
+{
+    "m_defaultSpeaker": "O'Neil",
+    "m_lines": [
+        "Emily: Merry Christmas!",
+        "O'Neil: Merry Christmas to you, too. What are you doing out here so late?",
+        "Emily: Just stopping by. What about you?",
+        "O'Neil: Oh, taking a break from studying?",
+        "Emily: Yeah? What are you studying?",
+        "O'Neil: Law. Though...",
+        "O'Neil: Okay, promise you won't laugh.",
+        "Emily: Of course not. ",
+        "O'Neil: Well, I also want to design games.",
+        "@SFX(HAPPY)",
+        "Emily: Really? That's awesome. ",
+        "O'Neil: Haha. I haven't made anything yet. Just tinkering with engines in between classes. ",
+        "@SFX(HAPPY)",
+        "Emily: Well, I hope you keep at it. The studying and making games. Just remember to not push yourself too hard, okay?",
+        "Emily: Anyway, I wanted to give you this. [hands over present] I've sort of decided to gift my neighbors a little something. ",
+        "@SFX(SURPRISE)",
+        "O'Neil: Really? You're giving this to me? ",
+        "Emily: Yeah. ",
+        "O'Neil: Oh wow. I should get inside and open this. It's freezing out here. You want to come in?",
+        "Emily: No, I'm good. ",
+        "O'Neil: You sure? Well, it's late. Take care so you don't get frostbite. ",
+        "Emily: Hahah, I will. Merry Christmas.",
+        "O'Neil: You too! Thanks again. Bye! "
+    ],
+    "m_finalWords": "I am error.",
+    "m_isMandatory": false
+}

@@ -1,0 +1,21 @@
+{
+    "m_defaultSpeaker": "Cain",
+    "m_lines": [
+        "Cain: Hey, neighbor! What are you doing out so late in the snow?",
+        "Emily: Me? Just talking a walk and wanted to pay some neighbors a visit on Christmas. ",
+        "Emily: This is for you. [hands over present]",
+        "@SFX(HAPPY)",
+        "Cain: Oh, thank you! ",
+        "@SFX(SAD)",
+        "Cain: Oh, but I don't have anything for you in return. ",
+        "Cain: Ummm...I've got some candy canes left. You want a candy cane? ",
+        "Emily: Hahah. No, I'm good. I just wanted to swing by. ",
+        "Cain: Suit yourself. Don't stay out too long, alright? It might not stop snowing until tomorrow morning. ",
+        "Emily: Okay, I will. ",
+        "@SFX(HAPPY)",
+        "Cain: Don't be a stranger. Merry Christmas.",
+        "Emily: Merry Christmas to you, too!"
+    ],
+    "m_finalWords": "Ugh, I think I ate too many candy canes.",
+    "m_isMandatory": true
+}

@@ -1,0 +1,96 @@
+﻿@SFX(HAPPY)
+Emily: Merry Christmas!
+
+@SFX(HAPPY)
+Mitra: Oh, hey. Merry Christmas to you too. Carter, stay where I can see you, alright?
+Emily: Nice snowman, by the way
+Mitra: Aw, thanks. Once it started snowing, I couldn't keep Carter inside, even if I wanted to. 
+Mitra: He HAD to come out and make his own snowman. 
+Emily: That's sweet. How was your Christmas?
+Mitra: Oh...Haha. Hectic. 
+Mitra: I put Carter to bed and then had to make sure the presents were under the tree just in case he'd try to wake up to sneak a peek at Santa. 	
+Mitra: Barely got to sleep and then seems like as soon as I went to bed, he's jumping on my bed to wake me up to open presents. 
+Emily: Oh yeah, I remember being that age. 
+Mitra: Uh huh. I forgot how when you're a kid, how big a deal Christmas is. 
+Mitra: It's like one day of the year that it's fine to believe in magic. 
+Emily: I know what you mean. 
+@SFX(SAD)
+Emily: I remember being so crushed when I found out Santa wasn't real. 
+Mitra: Yeah, I'm not looking forward to that point with Carter. I don't know if I'll even have the heart to tell him it's all made-up. 
+Mitra: He'll probably find out eventually but...I don't know.	
+Mitra: Part of me wants to hang on to that part just a little bit longer. 
+Mitra: Before I know it, he'll be all grown up. 
+@SFX(SAD)
+Mitra: Hah. Sorry, I didn't mean to be so-
+Emily: It's okay. It does look like he's having fun, though.
+Mitra: Yeah...until he gets too cold and he just throws all his wet gloves all over the floor. 
+Mitra: Oh god, do you know what he got ME for Christmas?
+Emily: No, what?
+Mitra: Okay, so...I guess he made at school...you know, before winter break started. 
+Mitra: I honestly wasn't expecting anything. Not that I don't want things but...money being tight...
+Mitra: Anyway, so he's hopping on my bed going "Mommy, wake up! Santa came!" and I got dressed and went downstairs. 
+Mitra: Carter is just bouncing off the walls, so excited. He opens his presents and there's wrapping paper everywhere. 
+Mitra: I'm watching him just go from one thing to the next just completely over the moon. 
+Mitra: By the last one, I'm getting ready to get up, have some hot cocoa and he goes "Mom, you forgot your present." 
+Mitra: and he comes up and puts this wrapped present in my hand. It's just COVERED in tape and ribbon. So I open it and… 	
+Mitra: It's a bracelet he made in class. 
+Mitra: I guess they took some dry pasta and dyed them different colors and there's beads and feathers and stuff on it. 
+Mitra: I'm just looking at it and I don't know what to say. I don't hate it, I'm just kind of...I don't know. 
+Mitra: Touched, I guess. And he gives me a BIG hug and says that he knew how much I wanted one of those charm bracelets so he made one for me. 
+
+@SFX(HAPPY)
+Emily: Aww. That's so sweet.
+
+@SFX(HAPPY)
+Mitra: I know! I just got choked up. I really try to not to let it show, the money troubles and trying to make sure he's taken care of. 
+Mitra: I thought "As long as he's happy, I don't care. It'll be worth it in the end. 
+Mitra: He doesn't have to work about bills or car insurance or anything. 
+Mitra: Just let him have one day where he gets to be excited and tear up wrapping paper and believe for a moment in magic and elves 
+Mitra: and reindeer and Santa". I know I can't get him much but I was fine letting his happiness be my present, if that makes sense. 
+Mitra: And then... yeah. Honestly, it's the best present I've gotten. 
+Emily: Really?
+@SFX(HAPPY) 
+
+Mitra: Yup. In a long time. It's misshapen and looks like a torn up fishing lure but I wouldn't trade it for anything. 
+Emily: Speaking of which, I hope you don't mind one more little present. 
+Mitra: Wait, what? For me?
+Emily: Yeah. Well, for both of you. 
+@SFX(HAPPY)
+Mitra: Aww, you didn't have to. 
+Emily: I know I didn't have to but I wanted to. [hands over present]
+
+Emily: This one is for Carter. I'll admit I haven't gotten to know my neighbors very well this year but I knew you had a son. 
+
+@SFX(UNWRAP)
+
+Mitra: Is that what I think it is?
+Emily: I hope so. I don't know if Carter is a big Mecha Fighter fan but I was really into it his age. 
+Emily: Since they have the live-action movies, the toys are coming back so-
+@SFX(HAPPY)
+Mitra: Wow! You guessed lucky! He adores those silly robot things. I could only afford to get him one this year. 
+@SFX(HAPPY)
+Emily: Now he has two to play with. It's a lot more fun to have more than one. Speaking from experience. 
+Emily: I maybe should have done my shopping earlier. The store was pretty much picked clean so I had to get one of the less popular ones.
+Mitra: Oh no, I understand. Honestly I don't think Carter will mind. 
+Emily: Don't think I didn't forget you. [hands over present]
+
+@SFX(UNWRAP)
+
+Emily: Yours is less...inspired, I'll admit. Just one of those shortbread cookie tins. 
+
+@SFX(HAPPY)
+Mitra: You kidding me?! I love these! These were a Christmas tradition in my family.
+Mitra: We'd just take turns eating them and watch Christmas movies. I'd use the empty tins to put stuff like rocks and seashells. 
+Mitra: You just out late giving presents out?
+
+Emily: Yeah. 
+Mitra: How come?
+Emily: Well...my family lives all over the place so we don't get together for the holidays, not all of us anyway.
+Emily: Visiting my neighbors and stuff was sort of spontaneous. Otherwise I'd just be at home watching holiday specials. 
+Mitra: By yourself? 
+Emily: No, I've got my cat. 
+Mitra: Oh. Well, at least you're not alone. Nobody should be alone on Christmas. 
+Emily: I know. Well, I should get going. 
+Mitra: Okay. Don't stay out too long. It might not stop snowing tonight. Stay warm, okay?
+Emily: Okay. Merry Christmas.
+Mitra: Merry Christmas to you too. 

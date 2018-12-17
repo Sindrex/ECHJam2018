@@ -46,7 +46,7 @@
         {
             if (m_gameState.ActiveHouse.OwnerName == "Rich")
             {
-                m_rich.Show();
+                m_rich.Visible = true;
                 m_rich.PauseAnimations();
                 yield return new WaitForEndOfFrame();
                 yield return new WaitForEndOfFrame();
@@ -114,7 +114,7 @@
             if (m_gameState.ActiveHouse != null && m_gameState.ActiveHouse.OwnerName == "Rich")
             {
                 m_rich.PauseAnimations();
-                m_rich.Hide();
+                m_rich.Visible = false;
             }
         }
     }

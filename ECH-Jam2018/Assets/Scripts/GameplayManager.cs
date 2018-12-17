@@ -21,7 +21,7 @@
         void TalkToSelf()
         {
             // The player interacted with the door to go out
-            if (m_gameState.ActiveHouse.IsHome && !m_gameState.IsIndoor) m_gameController.TalkToSelf();
+            //if (m_gameState.ActiveHouse.IsHome && !m_gameState.IsIndoor) m_gameController.TalkToSelf();
 
             // The player is back home and talked to everybody
             if(m_gameState.ActiveHouse.IsHome && m_gameState.IsPhaseOver() && m_gameState.IsIndoor)

@@ -209,27 +209,50 @@
             // Only look for the closest character/house if not in a dialogue
             if (m_gameState.ActiveDialogue == null)
             {
-                float distance;
-                var character = m_characterManager.GetClosest(m_player.transform.position, out distance);
-                if (character != null && distance < 3f && Dialogue.Exists(m_gameState.Phase, character.Name))
-                {
-                    m_gameState.ActiveCharacter = character;
-                }
-                else
-                {
-                    m_gameState.ActiveCharacter = null;
-
-                    // Only check houses interaction if no character is available
-                    var house = m_houseManager.GetClosest(m_player.transform.position, out distance);
-                    if (house != null && distance < 3f) m_gameState.ActiveHouse = house;
-                    else m_gameState.ActiveHouse = null;
-                }
+                if (m_gameState.IsIndoor) LookForClosestOutdoor();
+                else LookForClosestOutdoor();
             }
 
-            if (Input.GetKeyDown(KeyCode.X)) Interact();
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if (m_gameState.IsIndoor) InteractIndoor();
+                else InteractOutdoor();
+            }
         }
 
-        public void Interact()
+        // Indoor, give priority to characters
+        void LookForClosestIndoor()
+        {
+            float distance;
+            var character = m_characterManager.GetClosest(m_player.transform.position, out distance);
+            if (character != null && distance < 3f && Dialogue.Exists(m_gameState.Phase, character.Name))
+            {
+                m_gameState.ActiveCharacter = character;
+            }
+            else
+            {
+                m_gameState.ActiveCharacter = null;
+
+                // Only check houses interaction if no character is available
+                var house = m_houseManager.GetClosest(m_player.transform.position, out distance);
+                if (house != null && distance < 3f) m_gameState.ActiveHouse = house;
+                else m_gameState.ActiveHouse = null;
+            }
+        }
+        // Outdoor, give priority to houses
+        void LookForClosestOutdoor()
+        {
+            float distance;
+            var house = m_houseManager.GetClosest(m_player.transform.position, out distance);
+            if (house != null && distance < 3f) m_gameState.ActiveHouse = house;
+            else m_gameState.ActiveHouse = null;
+
+            var character = m_characterManager.GetClosest(m_player.transform.position, out distance);
+            if (character != null && distance < 3f && Dialogue.Exists(m_gameState.Phase, character.Name)) m_gameState.ActiveCharacter = character;
+            else m_gameState.ActiveCharacter = null;
+        }
+
+        public void InteractIndoor()
         {
             if (TemporarilyDisabled) return;
 
@@ -245,6 +268,27 @@
             else if (m_gameState.ActiveCharacter != null) TalkToActiveCharacter();
             // No character in range, but there's a house
             else if (m_gameState.ActiveHouse != null) InteractWithHouse();
+            // Nothing to interact with, here. Play SFX for invalid actions
+            else m_gameState.OnEventHappened("SFX(WRONG)");
+        }
+
+
+        public void InteractOutdoor()
+        {
+            if (TemporarilyDisabled) return;
+
+            // A dialogue is currently open
+            if (m_gameState.ActiveDialogue != null)
+            {
+                // But we reached the last line, stop it
+                if (m_gameState.IsDialogueOver) StopTalking();
+                // There are more lines, go on
+                else AdvanceDialogue();
+            }
+            // No dialogue currently open, but there's a house
+            else if (m_gameState.ActiveHouse != null) InteractWithHouse();
+            // No house, but there's someone in range, let's talk to him
+            else if (m_gameState.ActiveCharacter != null) TalkToActiveCharacter();
             // Nothing to interact with, here. Play SFX for invalid actions
             else m_gameState.OnEventHappened("SFX(WRONG)");
         }
