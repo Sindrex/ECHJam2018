@@ -49,14 +49,8 @@
         {
             m_colliderManager = FindObjectOfType<ColliderManager>();
             if (m_colliderManager == null) throw new Exception("Can't find ColliderManager");
-            m_gameState.GameIsOver += Disable;
             m_gameState.Phase = GamePhase.Introduction;
             EnterHouse();
-        }
-
-        void Disable()
-        {
-            enabled = false;
         }
 
         public void StopTalking()
@@ -103,14 +97,24 @@
 
             string line = m_gameState.AdvanceOneLine();
             string speakerName = m_characterManager.GetSpeakerName(line);
-            // The default speaker is the one we are talking to
-            if (string.IsNullOrEmpty(speakerName)) speakerName = m_gameState.ActiveDialogue.DefaultSpeaker;
+            if (line.StartsWith("#"))
+            {
+                int index = line.IndexOf(": ", 1);
+                if (index < 0) throw new Exception(string.Format("There should be a column followed by a space (: ) after the hash (#) on line {0}, in dialogue {1}", line, m_gameState.ActiveDialogue.Name));
+                speakerName = line.Substring(1, index - 1);
+                line = line.Substring(speakerName.Length + 3);
+            }
             else
             {
-                // Strip speaker's name and ": " from the line
-                line = line.Substring(speakerName.Length + 2);
-            }
+                // The default speaker is the one we are talking to
+                if (string.IsNullOrEmpty(speakerName)) speakerName = m_gameState.ActiveDialogue.DefaultSpeaker;
+                else
+                {
+                    // Strip speaker's name and ": " from the line
+                    line = line.Substring(speakerName.Length + 2);
+                }
 
+            }
             var closeUp = CloseUp.FromAsset(speakerName);
             yield return StartCoroutine(m_dialogueGui.ShowLineAsync(closeUp, speakerName, line));
         }
@@ -167,7 +171,7 @@
             m_gameState.IgnoreInput = true;
             m_gameState.OnGameIsOver();
             //Start ending cutscene
-            StartCoroutine(m_gameOverGui.ShowAsync());
+            //StartCoroutine(m_gameOverGui.ShowAsync());
         }
 
         public void TalkToSelf()
@@ -222,31 +226,50 @@
                 }
             }
 
-            if (TemporarilyDisabled) return;
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                // A dialogue is currently open
-                if (m_gameState.ActiveDialogue != null)
-                {
-                    // But we reached the last line, stop it
-                    if (m_gameState.IsDialogueOver) StopTalking();
-                    // There are more lines, go on
-                    else AdvanceDialogue();
-                }
-                // No dialogue currently open, but there's someone in range, let's talk to him
-                else if (m_gameState.ActiveCharacter != null) TalkToActiveCharacter();
-                // No character in range, but there's a house
-                else if (m_gameState.ActiveHouse != null) InteractWithHouse();
-                // Nothing to interact with, here. Play SFX for invalid actions
-                else m_gameState.OnEventHappened("SFX(WRONG)");
-            }
+            if (Input.GetKeyDown(KeyCode.X)) Interact();
         }
+
+        public void Interact()
+        {
+            if (TemporarilyDisabled) return;
+
+            // A dialogue is currently open
+            if (m_gameState.ActiveDialogue != null)
+            {
+                // But we reached the last line, stop it
+                if (m_gameState.IsDialogueOver) StopTalking();
+                // There are more lines, go on
+                else AdvanceDialogue();
+            }
+            // No dialogue currently open, but there's someone in range, let's talk to him
+            else if (m_gameState.ActiveCharacter != null) TalkToActiveCharacter();
+            // No character in range, but there's a house
+            else if (m_gameState.ActiveHouse != null) InteractWithHouse();
+            // Nothing to interact with, here. Play SFX for invalid actions
+            else m_gameState.OnEventHappened("SFX(WRONG)");
+        }
+
         [NonSerialized]
         bool m_temporarilyDisabled;
         public bool TemporarilyDisabled
         {
             get { return m_temporarilyDisabled; }
-            set { m_temporarilyDisabled = value; }
+            set {
+                m_temporarilyDisabled = value;
+                OnEnablingChanged();
+            }
+        }
+
+        [NonSerialized]
+        Action m_enablingChanged;
+        public event Action EnablingChanged
+        {
+            add { m_enablingChanged += value; }
+            remove { m_enablingChanged -= value; }
+        }
+        void OnEnablingChanged()
+        {
+            if (m_enablingChanged != null) m_enablingChanged();
         }
     }
 }

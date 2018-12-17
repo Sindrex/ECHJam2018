@@ -1,0 +1,43 @@
+﻿Emily: Phew! It felt good spreading some christmas cheer. 
+Emily: ...
+Emily: Now what?
+Emily: …
+Emily: It’s always like this, isn’t it, Vulpatrino?
+
+@SFX(SAD)
+
+Vulpatrino: [meows]
+Emily: Us two, name a more iconic duo! 
+Vulpatrino: [meows]
+Emily: Yeah, yeah, those are pretty iconic…
+@SFX(HAPPY)
+Emily: We’ll always have each other, Vulpatrino. 
+
+@SFX(KNOCK)
+Emily: Who’s there?
+Stranger Outside: Orange.
+Emily: Orange who?
+Stranger Outisde: Orange you going to let me in?
+Emily: Oh, right.
+
+@SFX(HAPPY)
+
+Rich: Thanks!
+@ENTER_HOUSE
+Emily: Hey Rich, what are you doing here?
+Rich: I am not alone! You are not alone!
+Mitra: Hey!
+O’Neil: Merry Christmas…
+@SFX(HAPPY)
+Cain: … and a happy new year!
+
+Emily: Guys, what are you all doing here?
+Mitra: You thought of us, so we had to think of you too!
+Cain: We brought you this, it’s just something we came up with.
+Rich: [Hands over present]
+@SFX(UNWRAP)
+Emily: It’s... It’s…
+@SFX(HAPPY)
+Emily: … perfect! 
+@SFX(HAPPY)
+Emily: Thank you so much guys! This is the best present ever!

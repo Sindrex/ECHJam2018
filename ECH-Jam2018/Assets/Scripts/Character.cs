@@ -55,17 +55,31 @@
             }
         }
 
+        public void Show()
+        {
+            m_renderer.enabled = true;
+        }
+        public void Hide()
+        {
+            m_renderer.enabled = false;
+        }
+
         public void Face(Transform other)
         {
             Facing = (other.position.x < transform.position.x) ? CharacterFacing.Left : CharacterFacing.Right;
         }
         public void PauseAnimations()
         {
-            if(m_animator != null) m_animator.enabled = false;
+            if (m_animator != null) m_animator.enabled = false;
         }
         public void ResumeAnimations()
         {
             if (m_animator != null) m_animator.enabled = true;
+        }
+
+        public void StandStill(bool still)
+        {
+            if (!IsPlayer) m_animator.SetBool("StandStill", still);
         }
     }
 }

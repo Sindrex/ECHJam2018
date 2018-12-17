@@ -27,13 +27,9 @@
         [SerializeField]
         GameOverGui m_gameOverGui;
 
-        [NonSerialized]
+        [SerializeField]
         Fader m_fader;
-        void Awake()
-        {
-            m_fader = FindObjectOfType<Fader>();
-            if (m_fader == null) throw new Exception("Cannot find Fader");
-        }
+
         void OnEnable()
         {
             m_gameState.EventHappened += CheckEvent;
@@ -50,7 +46,7 @@
 
         void CheckEvent(string eventName)
         {
-            if (eventName == "@ENTER_HOUSE")
+            if (eventName == "ENTER_HOUSE")
             {
                 StartCoroutine(EnterHouseAsync());
             }
@@ -58,30 +54,41 @@
 
         void ShowGameOverScreen()
         {
+            m_gameController.GameOver();
+            m_gameController.TemporarilyDisabled = true;
             StartCoroutine(m_gameOverGui.ShowAsync());
         }
 
         IEnumerator SequenceAsync()
         {
+            m_gameController.TemporarilyDisabled = true;
             yield return new WaitForSeconds(2f);
+            m_gameController.TemporarilyDisabled = false;
             yield return StartCoroutine(m_gameController.TalkToSelfAsync());
         }
 
         IEnumerator EnterHouseAsync()
         {
+            m_gameController.TemporarilyDisabled = true;
+            yield return StartCoroutine(m_fader.ShowAsync());
+
             var player = m_gameController.Player;
             var rich = m_characterManager.GetCharacter("Rich");
             var mitra = m_characterManager.GetCharacter("Mitra");
             var cain = m_characterManager.GetCharacter("Cain");
             var oneil = m_characterManager.GetCharacter("O'Neil");
-            m_gameController.TemporarilyDisabled = true;
-            yield return StartCoroutine(m_fader.ShowAsync());
 
             player.transform.position = m_playerPosition.position;
             rich.transform.position = m_richPosition.position;
             mitra.transform.position = m_mitraPosition.position;
             cain.transform.position = m_cainPosition.position;
             oneil.transform.position = m_oneilPosition.position;
+
+            mitra.StandStill(true);
+            cain.StandStill(true);
+            oneil.StandStill(true);
+            rich.StandStill(true);
+            rich.Show();
 
             player.Facing = CharacterFacing.Left;
             rich.Facing = CharacterFacing.Right;

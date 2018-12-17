@@ -13,6 +13,8 @@
         [SerializeField]
         float m_duration = 0.7f;
         [SerializeField]
+        GameController m_gameController;
+        [SerializeField]
         GameState m_gameState;
 
         public bool IsAnimating
@@ -52,6 +54,7 @@
         // Self manage
         void OnEnable()
         {
+            m_gameController.EnablingChanged += EnablingChanged;
             m_gameState.ActiveCharacterChanged += ShowIfInRange;
             m_gameState.StartedTalking += Hide;
             m_gameState.StoppedTalking += ShowIfInRange;
@@ -61,6 +64,7 @@
 
         void OnDisable()
         {
+            m_gameController.EnablingChanged -= EnablingChanged;
             m_gameState.ActiveCharacterChanged -= ShowIfInRange;
             m_gameState.StartedTalking -= Hide;
             m_gameState.StoppedTalking -= ShowIfInRange;
@@ -68,9 +72,14 @@
             m_gameState.ActiveHouseChanged -= ShowIfInRange;
         }
 
+        void EnablingChanged()
+        {
+            if (m_gameState.IgnoreInput || m_gameController.TemporarilyDisabled) Hide();
+        }
+
         void ShowIfInRange()
         {
-            if (m_gameState.IgnoreInput) Hide();
+            if (m_gameState.IgnoreInput || m_gameController.TemporarilyDisabled) Hide();
             else if (m_gameState.ActiveCharacter != null) Show("Talk to " + m_gameState.ActiveCharacter.Name);
             else if (m_gameState.ActiveHouse != null) Show(GetHouseInteraction());
             else Hide();

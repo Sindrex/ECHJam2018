@@ -1,7 +1,7 @@
 {
-    "m_defaultSpeaker": "Player",
+    "m_defaultSpeaker": "Emily",
     "m_lines": [
-		"Player: Whew. It's cold out tonight.",
+		"Whew. It's cold out tonight.",
 		"At least I got all my last minute shopping done.",
 		"I wonder what my neighbors are up to."
     ],

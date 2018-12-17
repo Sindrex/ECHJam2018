@@ -42,7 +42,15 @@
             m_endOfLine.SetActive(false);
             gameObject.SetActive(true);
 
-            m_closeup.CopyFrom(closeup);
+            if(closeup != null)
+            {
+                m_closeup.gameObject.SetActive(true);
+                m_closeup.CopyFrom(closeup);
+            }
+            else
+            {
+                m_closeup.gameObject.SetActive(false);
+            }
             m_name.text = name;
 
             m_words.text = "";

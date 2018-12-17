@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114688336228494892}
   - component: {fileID: 114481909422602190}
   m_Layer: 5
-  m_Name: Player
+  m_Name: Emily
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
