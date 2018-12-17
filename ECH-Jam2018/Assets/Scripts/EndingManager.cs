@@ -30,6 +30,14 @@
         [SerializeField]
         Fader m_fader;
 
+        [NonSerialized]
+        ShootingStarScript m_star;
+        void Awake()
+        {
+            m_star = FindObjectOfType<ShootingStarScript>();
+            if (m_star == null) throw new Exception("Can't find ShootingStar");
+        }
+
         void OnEnable()
         {
             m_gameState.EventHappened += CheckEvent;
@@ -54,9 +62,15 @@
 
         void ShowGameOverScreen()
         {
+            StartCoroutine(StarThenGameOver());
+        }
+        IEnumerator StarThenGameOver()
+        {
             m_gameController.GameOver();
             m_gameController.TemporarilyDisabled = true;
-            StartCoroutine(m_gameOverGui.ShowAsync());
+            m_star.startShootingStar();
+            yield return new WaitForSeconds(3f);
+            yield return StartCoroutine(m_gameOverGui.ShowAsync());
         }
 
         IEnumerator SequenceAsync()
