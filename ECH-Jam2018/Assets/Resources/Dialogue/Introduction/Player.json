@@ -1,8 +1,9 @@
 {
     "m_defaultSpeaker": "Player",
     "m_lines": [
-	"It's a wonderful day!",
-	"Let's spread some joy to the world."
+		"Player: Whew. It's cold out tonight.",
+		"At least I got all my last minute shopping done.",
+		"I wonder what my neighbors are up to."
     ],
-    "m_finalWords": "I got presents to give."
+    "m_finalWords": ""
 }

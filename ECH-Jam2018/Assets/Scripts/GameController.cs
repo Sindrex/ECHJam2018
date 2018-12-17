@@ -34,8 +34,6 @@
             get { return m_player; }
         }
         [SerializeField]
-        SoundController m_soundController;
-        [SerializeField]
         GameOverGui m_gameOverGui;
         [NonSerialized]
         ColliderManager m_colliderManager;
@@ -51,7 +49,6 @@
         {
             m_colliderManager = FindObjectOfType<ColliderManager>();
             if (m_colliderManager == null) throw new Exception("Can't find ColliderManager");
-            m_soundController.playAudio("BGM");
             m_gameState.GameIsOver += Disable;
             m_gameState.Phase = GamePhase.Introduction;
             EnterHouse();
@@ -177,6 +174,11 @@
         {
             m_gameState.ActiveCharacter = m_player;
             TalkToActiveCharacter();
+        }
+        public IEnumerator TalkToSelfAsync()
+        {
+            m_gameState.ActiveCharacter = m_player;
+            yield return StartCoroutine(TalkToActiveCharacterAsync());
         }
 
         public void KnockDoor()
