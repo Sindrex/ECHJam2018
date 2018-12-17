@@ -852,6 +852,17 @@ Prefab:
       propertyPath: m_Name
       value: Emily
       objectReference: {fileID: 0}
+    - target: {fileID: 95426116091529756, guid: 5041f478731daed42a89da2bf2648ef0,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fb7e7b80f0a9fd14db3e21c42905bf0e, type: 2}
+    - target: {fileID: 212750471769759490, guid: 5041f478731daed42a89da2bf2648ef0,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5c9a503f2339e7b40b3947132f8d0949,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5041f478731daed42a89da2bf2648ef0, type: 2}
   m_IsPrefabParent: 0
