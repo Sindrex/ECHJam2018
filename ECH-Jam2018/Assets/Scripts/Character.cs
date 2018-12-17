@@ -22,6 +22,13 @@
         }
 
         [SerializeField]
+        bool m_isCat = false;
+        public bool IsCat
+        {
+            get { return m_isCat; }
+        }
+
+        [SerializeField]
         Transform m_selectionParent;
         public Transform SelectionParent
         {
@@ -47,11 +54,15 @@
         {
             get
             {
-                return (m_renderer.flipX) ? CharacterFacing.Left : CharacterFacing.Right;
+                bool isFlipped = m_renderer.flipX;
+                if (IsCat) isFlipped = !isFlipped;
+                return (isFlipped) ? CharacterFacing.Left : CharacterFacing.Right;
             }
             set
             {
-                if (m_renderer != null) m_renderer.flipX = (value == CharacterFacing.Left);
+                bool mustFlip = (value == CharacterFacing.Left);
+                if (IsCat) mustFlip = !mustFlip;
+                if (m_renderer != null) m_renderer.flipX = mustFlip;
             }
         }
 

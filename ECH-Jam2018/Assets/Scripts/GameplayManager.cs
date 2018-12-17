@@ -1,5 +1,6 @@
 ﻿namespace GameJam
 {
+    using System;
     using UnityEngine;
 
     public sealed class GameplayManager : MonoBehaviour
@@ -11,14 +12,29 @@
 
         void OnEnable()
         {
-            m_gameState.IndoorChanged += TalkToSelf;
-        }
-        void OnDisable()
-        {
-            m_gameState.IndoorChanged -= TalkToSelf;
+            m_gameState.IndoorChanged += AdvancePhase;
+            m_gameState.StoppedTalking += TalkToSelfIfOver;
         }
 
-        void TalkToSelf()
+        void OnDisable()
+        {
+            m_gameState.IndoorChanged -= AdvancePhase;
+            m_gameState.StoppedTalking -= TalkToSelfIfOver;
+        }
+
+        [NonSerialized]
+        bool m_talkedToSelf = false;
+        void TalkToSelfIfOver()
+        {
+            if (m_talkedToSelf) return;
+            if (m_gameState.IsPhaseOver())
+            {
+                m_talkedToSelf = true;
+                m_gameController.TalkToSelf();
+            }
+        }
+
+        void AdvancePhase()
         {
             // The player interacted with the door to go out
             //if (m_gameState.ActiveHouse.IsHome && !m_gameState.IsIndoor) m_gameController.TalkToSelf();
