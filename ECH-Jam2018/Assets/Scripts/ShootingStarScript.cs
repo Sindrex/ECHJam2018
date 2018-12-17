@@ -24,7 +24,7 @@ public class ShootingStarScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (go || Input.GetKeyDown(KeyCode.G))
+        if (go)
         {
             startShootingStar();
             go = false;
