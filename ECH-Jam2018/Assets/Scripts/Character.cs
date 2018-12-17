@@ -54,22 +54,30 @@
         {
             get
             {
+                if (m_renderer == null) return CharacterFacing.Right;
                 bool isFlipped = m_renderer.flipX;
                 if (IsCat) isFlipped = !isFlipped;
                 return (isFlipped) ? CharacterFacing.Left : CharacterFacing.Right;
             }
             set
             {
+                if (m_renderer == null) return;
                 bool mustFlip = (value == CharacterFacing.Left);
                 if (IsCat) mustFlip = !mustFlip;
-                if (m_renderer != null) m_renderer.flipX = mustFlip;
+                m_renderer.flipX = mustFlip;
             }
         }
 
         public bool Visible
         {
-            get { return m_renderer.enabled; }
-            set { m_renderer.enabled = value; }
+            get {
+                if (m_renderer == null) return true;
+                return m_renderer.enabled;
+            }
+            set {
+                if (m_renderer == null) return;
+                m_renderer.enabled = value;
+            }
         }
 
         public void Face(Transform other)
@@ -87,7 +95,8 @@
 
         public void StandStill(bool still)
         {
-            if (!IsPlayer) m_animator.SetBool("StandStill", still);
+            if (IsPlayer) return;
+            if(m_animator != null) m_animator.SetBool("StandStill", still);
         }
     }
 }
