@@ -327,7 +327,7 @@ MonoBehaviour:
   jumpRaycastStart: 0.1
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  maxFallVelocity: 2
+  maxFallVelocity: 20
   jumping: 0
   running: 0
   spriteRenderer: {fileID: 212750471769759490}

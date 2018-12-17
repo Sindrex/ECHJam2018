@@ -83,13 +83,20 @@
         private void FixedUpdate()
         {
             FixSmallVelocity();
+            //print(rb.velocity.y + "/" + -maxFallVelocity);
             if (rb.velocity.y < 0 && rb.velocity.y > -maxFallVelocity)
             {
+                //print("B");
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
-            else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+            else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && rb.velocity.y > -maxFallVelocity)
             {
+                //print("A");
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            }
+            else if(rb.velocity.y < -maxFallVelocity)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -maxFallVelocity);
             }
 
             // Ignore input if needed
